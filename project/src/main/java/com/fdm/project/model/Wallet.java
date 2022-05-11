@@ -17,6 +17,7 @@ public class Wallet {
     @Id
     @SequenceGenerator(name = "WALLET_SEQ_GNTR", sequenceName = "WALLET_SEQ")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "WALLET_SEQ_GNTR")
+    @Column(name = "wallet_id")
     private int walletId;
     
     @ManyToOne
