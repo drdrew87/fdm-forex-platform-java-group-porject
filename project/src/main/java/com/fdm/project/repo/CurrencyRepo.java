@@ -9,6 +9,6 @@ import com.fdm.project.model.Currency;
 
 @Repository
 public interface CurrencyRepo extends JpaRepository<Currency, Integer>{
-    Currency getByCurrencySymbol(String symbol);
-    Optional<Currency> findByCurrencySymbol(String symbol);
+    Currency getByCurrencyCode(String code);
+    Optional<Currency> findByCurrencyCode(String code);
 }
