@@ -27,6 +27,10 @@ public class Bank {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
+    
+    @ManyToOne
+    @JoinColumn(name = "currency_id", referencedColumnName = "currency_id")
+    private Currency currency;
 
     public Bank() {
 	super();
@@ -54,6 +58,14 @@ public class Bank {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 
     public int getBankAccountId() {
