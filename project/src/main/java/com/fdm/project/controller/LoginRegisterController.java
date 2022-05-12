@@ -5,10 +5,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fdm.project.model.User;
 import com.fdm.project.service.UserService;
 
 @Controller
@@ -16,7 +19,6 @@ public class LoginRegisterController {
 
 	@Autowired
 	private UserService userService;
-	
 	
 	@GetMapping("/")
 	public String goToLandingPage() {
@@ -27,20 +29,40 @@ public class LoginRegisterController {
 	public String goToLoginPage() {	
 		return "login";
 	}
-	
+
 	@PostMapping("/login")
 	public String verifyUserForLogin(@RequestParam String username, @RequestParam String password, HttpServletRequest req) {
 		
-		boolean verified = userService.verifyUser(username, password);
+		boolean isValidUser = userService.verifyUser(username, password);
 		
-		if (verified) {
+		if (isValidUser) {
 			HttpSession session = req.getSession();
 			session.setAttribute("active_user", username);
 			return "home";
 		} else {
 			return "login";
 		}
+
+	}
+	
+	@GetMapping("/register")
+	public String goToRegisterpage(Model model) {
 		
+		model.addAttribute("user", new User());
 		
+		return "register";
+	}
+	
+	@PostMapping("/register")
+	public String registerNewUser(@ModelAttribute User user) {
+		
+		boolean isUniqueUsername = userService.verifyUsernameIsUnique(user.getUsername());
+		
+		if (isUniqueUsername) {
+			return "login";
+		} else {
+		return "register";
+		}
 	}
 }
+
