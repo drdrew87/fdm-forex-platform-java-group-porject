@@ -6,7 +6,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 
 @SpringBootApplication
-@EnableFeignClients
 public class ForexPlatformApplication {
 
 	public static void main(String[] args) {
