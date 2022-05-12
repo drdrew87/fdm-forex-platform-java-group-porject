@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th= "http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Sign Up Page</title>
@@ -9,12 +9,42 @@
 	<nav>
 		<ul>
 			<li>STANLEY</li>
-			<li><a href="login">Login</a></li>	
+			<li><button type="button" class="landing-nav-btn">Login</button></li>	
 		</ul>
 	</nav>
 </header>
 
 <body>
+	<div class="input-group">
+		<p>REGISTER</p>
+		<form th:action="@{/register}" method="post" th:object="${user}">
+			<input type="text" th:field="*{username}" placeholder="Username" class="input-field" required>
+			<input type="password" th:field="*{password}" placeholder="Password" class="input-field" id="register_password" required>
+			<input type="password" name="confirmpassword" placeholder="Confirm Password" class="input-field" id="register_confirmpassword"required>
+			<input list="currencies" id="currencies" th:field="*{preferredCurrency}" placeholder="Please choose your preferred currency" required/>
+				<datalist id="currencies" th:each="currency : ${currencies}">
+					<option th:text="${currency.currencyName} + ', ' + ${currency.currencyCode}" >
+				</datalist>
+			<button type = "submit" class="submit-btn" id="register_submit" onclick="checkPasswordMatch()">REGISTER</button>
+			<span id="password_status"></span>
+		</form> 
+	</div>
+	<script>
+	function checkPasswordMatch(){
+		var password = document.getElementById('register_password');
+		var confirmpassword = document.getElementById('register_confirmpassword');
+		var status = document.getElementById('password_status');
+		var submit = document.getElementById('register_submit');
+		
+		if (password != confirmpassword) {
+			status.innerHTML = "Passwords do not match";
+			document.submit.disabled = true;
+		} else {
+			status.innerHTML = "";
+			document.submit.disabled = false;
+		}
+	}
+	</script>
 
 </body>
 </html>
