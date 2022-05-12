@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html> <!-- xmlns:th= " http://www.thymeleaf.org " -->
+<head>
+<meta charset="UTF-8">
+<link href="/Users/jeanyap/eclipse-workspace/team-stanley-forex-platform/project/src/main/resources/static/css/style.css" rel="stylesheet" >
+
+<!-- <meta http-equiv="refresh" content="5" > -->
+<title>Login Page</title>
+
+</head>
+
+<body>
+
+	<div class="form-box">
+		<div class="button-box">
+		<div id="btn"></div>
+			<button type="button" class="toggle-btn" onclick="login()">Login</button>	
+			<button type="button" class="toggle-btn" onclick="register()">Register</button>		
+		</div>
+		
+		<form action="/login" method="post" class="input-group" id="login">
+			<input type="text" name="username" placeholder="Username" class="input-field" required>
+			<input type="password" name="password" placeholder="Password" class="input-field" required>
+			<button type = "submit" class="submit-btn">LOGIN</button>
+		</form> 
+		
+		<form action="register" method="post" class="input-group" id="register">
+			<input type="text" name="username" placeholder="Username" class="input-field" required>
+			<input type="password" name="password" placeholder="Password" class="input-field" id="register_password" required>
+			<input type="password" name="confirmpassword" placeholder="Confirm Password" class="input-field" id="register_confirmpassword"required>
+			<button type = "submit" class="submit-btn" id="register_submit" onclick="checkPasswordMatch()">REGISTER</button>
+			<span id="password_status"></span>
+		</form> 
+	</div>
+
+	<script>
+	var x = document.getElementById('login');
+	var y = document.getElementById('register');
+	var z = document.getElementById('btn');
+	
+	function register() {
+		x.style.left = "-400px";
+		y.style.left = "50px";
+		z.style.left = "110px";
+	}
+	function login() {
+		x.style.left = "50px";
+		y.style.left = "450px";
+		z.style.left = "0";
+	}
+	
+	function checkPasswordMatch(){
+		var password = document.getElementById('register_password');
+		var confirmpassword = document.getElementById('register_confirmpassword');
+		var status = document.getElementById('password_status');
+		var submit = document.getElementById('register_submit');
+		
+		if (password != confirmpassword) {
+			status.innerHTML = "Passwords do not match";
+			document.submit.disabled = true;
+		} else {
+			status.innerHTML = "";
+			document.submit.disabled = false;
+		}
+	}
+	</script>
+</body>
+</html>
