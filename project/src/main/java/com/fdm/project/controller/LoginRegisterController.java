@@ -41,7 +41,7 @@ public class LoginRegisterController {
 		if (isValidUser) {
 			HttpSession session = req.getSession();
 			session.setAttribute("active_user", username);
-			return "home";
+			return "landing";
 		} else {
 			return "login";
 		}

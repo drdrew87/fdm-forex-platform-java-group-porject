@@ -21,7 +21,7 @@
 		<div class="input-group">
 			<p><strong>Welcome back!</strong></p>
 			<br><br>
-			<form action="/login" method="post" id="login">
+			<form th:action="@{/login}" method="post" id="login">
 				<input type="text" name="username" placeholder="Username" class="input-field" required>
 				<input type="password" name="password" placeholder="Password" class="input-field" required>
 				<br>
