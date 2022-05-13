@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fdm.project.model.User;
+import com.fdm.project.service.CurrencyService;
 import com.fdm.project.service.UserService;
 
 @Controller
@@ -19,6 +20,8 @@ public class LoginRegisterController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private CurrencyService currencyService;
 	
 	@GetMapping("/")
 	public String goToLandingPage() {
@@ -49,20 +52,24 @@ public class LoginRegisterController {
 	public String goToRegisterpage(Model model) {
 		
 		model.addAttribute("user", new User());
+		model.addAttribute("currencies", currencyService.getAllCurrencies());
 		
 		return "register";
 	}
 	
 	@PostMapping("/register")
-	public String registerNewUser(@ModelAttribute User user) {
+	public String registerNewUser(@ModelAttribute User user, @RequestParam String preferredcurrency) {
 		
 		boolean isUniqueUsername = userService.verifyUsernameIsUnique(user.getUsername());
 		
 		if (isUniqueUsername) {
+			user.setPreferredCurrency(currencyService.getByCurrencyCode(preferredcurrency));
+			userService.registerUser(user);
 			return "login";
 		} else {
 		return "register";
 		}
 	}
+	
 }
 
