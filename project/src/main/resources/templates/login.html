@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Stanley | Login</title>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+</head>
+
+<header>
+	<nav>
+		<ul>
+			<li><a href="/Stanley/">STANLEY</a></li>
+			<li><button type="button" class="landing-nav-btn" onclick="location.href='register'">Sign up</button></li>	
+		</ul>
+	</nav>
+</header>
+
+<body>
+	
+	<div class="landing-box">
+		<div class="input-group">
+			<p><strong>Welcome back!</strong></p>
+			<br><br>
+			<form th:action="@{/login}" method="post" id="login">
+				<input type="text" name="username" placeholder="Username" class="input-field" required>
+				<input type="password" name="password" placeholder="Password" class="input-field" required>
+				<br>
+				<button type = "submit" class="submit-btn">LOGIN</button>
+			</form> 
+		</div>
+	</div>	
+
+</body>
+</html>
