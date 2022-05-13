@@ -25,7 +25,7 @@ public class CreateWalletController {
     
     @GetMapping("/{username}/wallet/createWallet")
     public String accessCreateWalletPage(@PathVariable String username, Model model) {
-	ArrayList<Currency> currencyList = (ArrayList<Currency>) currencyService.getAllCurrency();
+	ArrayList<Currency> currencyList = (ArrayList<Currency>) currencyService.getAllCurrencies();
 	model.addAttribute("currencyList", currencyList);
 	return "wallet_createWallet";
     }
