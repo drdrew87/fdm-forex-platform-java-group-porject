@@ -14,6 +14,7 @@ import com.fdm.project.model.Currency;
 import com.fdm.project.model.User;
 import com.fdm.project.model.Wallet;
 import com.fdm.project.service.CurrencyService;
+import com.fdm.project.service.UserService;
 import com.fdm.project.service.WalletService;
 
 @Controller
@@ -22,6 +23,8 @@ public class CreateWalletController {
     private CurrencyService currencyService;
     @Autowired
     private WalletService walletService;
+    @Autowired
+    private UserService userService;
     
     @GetMapping("/{username}/wallet/createWallet")
     public String accessCreateWalletPage(@PathVariable String username, Model model) {
@@ -32,10 +35,13 @@ public class CreateWalletController {
     
     @PostMapping("/{username}/wallet/createWallet")
     public String addNewWallet(@PathVariable String username, @RequestParam String walletCurrencyCode) {
-	Wallet newWallet = new Wallet();
-	newWallet.setCurrency(currencyService.getByCurrencyCode(walletCurrencyCode));
-	newWallet.setWalletBalance(0);
-	walletService.addNewWallet(newWallet);
+	if (walletService.validateNewWallet(username, walletCurrencyCode)) {
+        	Wallet newWallet = new Wallet();
+        	newWallet.setUser(userService.getUserByUsername(username));
+        	newWallet.setCurrency(currencyService.getByCurrencyCode(walletCurrencyCode));
+        	newWallet.setWalletBalance(0);
+        	walletService.addNewWallet(newWallet);
+	}
 	return "redirect:/" + username + "/wallet";
     }
 }
