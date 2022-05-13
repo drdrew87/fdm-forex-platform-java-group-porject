@@ -1,7 +1,9 @@
 package com.fdm.project.controller;
 
 import com.fdm.project.model.ForwardOrderForex;
+import com.fdm.project.model.SpotOrderForex;
 import com.fdm.project.service.ForwardOrderForexService;
+import com.fdm.project.service.SpotOrderForexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class OrderController {
     @Autowired
     ForwardOrderForexService forwardOrderForexService;
 
+    @Autowired
+    SpotOrderForexService spotOrderForexService;
+
     @GetMapping("/forward")
     public String goToForwardPage(Model model) {
         List<ForwardOrderForex> forwardOrderForexList=forwardOrderForexService.findAllForwardOrderForex();
@@ -28,10 +33,14 @@ public class OrderController {
 
     }
 
-    @GetMapping("/order")
-    public String goToLoginPage(Model model) {
+    @GetMapping("/orderboard")
+    public String goToOrderBoardPage(Model model) {
+        List<ForwardOrderForex> forwardOrderForexList=forwardOrderForexService.findAllForwardOrderForex();
+        model.addAttribute("forwardorderlist",forwardOrderForexList);
+        List<SpotOrderForex> spotOrderForexList= spotOrderForexService.findAllSpotOrderForex();
+        model.addAttribute("spotorderforexlist",spotOrderForexList);
 
-        return "order";
+        return "orderboard";
     }
 
 
