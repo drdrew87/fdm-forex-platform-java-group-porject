@@ -17,11 +17,11 @@ public class CurrencyService {
 	return currencyRepo.findAll();
     }
     
-    public Currency findByCurrencyId(int currencyId) {
+    public Currency getByCurrencyId(int currencyId) {
 	return currencyRepo.getById(currencyId);
     }
 
-    public Currency findByCurrencyCode(String currencyCode) {
+    public Currency getByCurrencyCode(String currencyCode) {
 	return currencyRepo.getByCurrencyCode(currencyCode);
     }
 }
