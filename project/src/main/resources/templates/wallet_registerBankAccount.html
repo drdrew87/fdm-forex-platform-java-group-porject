@@ -5,6 +5,28 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<div>
+		<p>Register Bank Account</p>
+		<form th:action="@{/{username}/wallet/registerBankAccount(username=${username})}" th:object="${currencyList}" method="post">
+			<div>
+				<label for="bankAccountNumber">Bank Account Number</label>
+			</div>
+			<div>
+				<input type="number" id="bankAccountNumber" name="bankAccountNumber" required/>
+			</div>
+			<div>
+				<label for="walletCurrencyCode">Bank Currency</label>
+			</div>
+			<div>
+				<input list="walletCurrency" id="walletCurrencyCode" name="walletCurrencyCode" required/>
+				<datalist id="walletCurrency">
+					<option th:each="currency : ${currencyList}" th:value="${currency.currencyCode}" th:label="${currency.currencyName}">
+				</datalist>
+			</div>
+			<div>
+				<button type="submit">Register new bank account</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>
