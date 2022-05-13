@@ -36,22 +36,23 @@ public class CurrencyRateService {
         Map<String, CurrencyRate> currencyRate = currencyResponse.getRates();
         System.out.println(currencyRate.values());
         for (Map.Entry<String, CurrencyRate> entry : currencyRate.entrySet()) {
-            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-            if (currencyRepo.findByCurrencyCode(entry.getKey()).isEmpty()) {
-                Currency tempcurrency = new Currency();
-                tempcurrency.setCurrencyName(entry.getValue().getName());
-                tempcurrency.setCurrencyCode(entry.getKey());
-                tempcurrency.setCurrencyRate(entry.getValue().getValue());
-                Long datetime = System.currentTimeMillis();
-                tempcurrency.setLastUpdateTime(new Timestamp(datetime));
-                currencyRepo.save(tempcurrency);
-            } else {
-                System.out.println("updatin");
-                Currency tempcurrency = currencyRepo.findByCurrencyCode(entry.getKey()).get();
-                tempcurrency.setCurrencyRate(entry.getValue().getValue());
-                Long datetime = System.currentTimeMillis();
-                tempcurrency.setLastUpdateTime(new Timestamp(datetime));
-                currencyRepo.save(tempcurrency);
+            if (entry.getValue().getType().equals("fiat")) {
+                if (currencyRepo.findByCurrencyCode(entry.getKey()).isEmpty()) {
+                    Currency tempcurrency = new Currency();
+                    tempcurrency.setCurrencyName(entry.getValue().getName());
+                    tempcurrency.setCurrencyCode(entry.getKey());
+                    tempcurrency.setCurrencyRate(entry.getValue().getValue());
+                    Long datetime = System.currentTimeMillis();
+                    tempcurrency.setLastUpdateTime(new Timestamp(datetime));
+                    currencyRepo.save(tempcurrency);
+                } else {
+                    System.out.println("updatin");
+                    Currency tempcurrency = currencyRepo.findByCurrencyCode(entry.getKey()).get();
+                    tempcurrency.setCurrencyRate(entry.getValue().getValue());
+                    Long datetime = System.currentTimeMillis();
+                    tempcurrency.setLastUpdateTime(new Timestamp(datetime));
+                    currencyRepo.save(tempcurrency);
+                }
             }
 
 
