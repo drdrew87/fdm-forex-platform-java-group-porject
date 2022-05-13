@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>OrderBoard</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+</head>
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="/Stanley/" id="stanley">STANLEY</a></li>
+            <li><button type="button" class="landing-nav-btn" onclick="location.href='login'">Login</button></li>
+        </ul>
+    </nav>
+</header>
+
+<body>
+
+<!--<div class="landing-box">-->
+<!--    <div class="welcome-box">-->
+<!--        <h1>Trade with Stanley</h1>-->
+<!--        <br><br><br>-->
+<!--        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,-->
+<!--            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>-->
+<!--        <br><br><br>-->
+<!--        <button type="button" id="landing-signupbtn" onclick="location.href='register'">Sign Up</button>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="order-table">
+    <table>
+        <thead>
+        <tr>
+            <th> ORDER  </th>
+            <th> CUR 1 </th>
+            <th> AMOUNT </th>
+            <th> CUR 2  </th>
+            <th> AMOUNT </th>
+            <th> EXPIRT </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="forexorder : ${forwardorderlist}">
+            <td><span th:text="${forwardorderlist.orderId}"> </span></td>
+            <td><span th:text="${forwardorderlist.buyCurrency}">  </span></td>
+            <td><span th:text="${forwardorderlist.buyAmount}">  </span></td>
+            <td><span th:text="${forwardorderlist.sellCurrency}">   </span></td>
+            <td><span th:text="${forwardorderlist.sellAmount}">  </span></td>
+            <td><span th:text="${forwardorderlist.expiryDate()}">  </span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+        <tr>
+            <th> ORDER  </th>
+            <th> CUR 1 </th>
+            <th> AMOUNT </th>
+            <th> CUR 2  </th>
+            <th> AMOUNT </th>
+            <th> EXPIRT </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="spotorderforex : ${spotorderforexlist}">
+            <td><span th:text="${spotorderforex.orderId}"> </span></td>
+            <td><span th:text="${spotorderforex.buyCurrency}">  </span></td>
+            <td><span th:text="${spotorderforex.buyAmount}">  </span></td>
+            <td><span th:text="${spotorderforex.sellCurrency}">   </span></td>
+            <td><span th:text="${spotorderforex.sellAmount}">  </span></td>
+            <td><span th:text="${spotorderforex.expiryDate()}">  </span></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
