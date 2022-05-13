@@ -10,16 +10,18 @@ import com.fdm.project.repo.CurrencyRepo;
 
 @Service
 public class CurrencyService {
+    @Autowired
+    private CurrencyRepo currencyRepo;
+    
+    public List<Currency> getAllCurrencies() {
+	return currencyRepo.findAll();
+    }
+    
+    public Currency getByCurrencyId(int currencyId) {
+	return currencyRepo.getById(currencyId);
+    }
 
-	@Autowired
-	private CurrencyRepo currencyRepo;
-	
-	public List<Currency> getAllCurrencies(){
-		return currencyRepo.findAll();
-	}
-
-	public Currency getByCurrencyCode(String preferredcurrency) {
-		return currencyRepo.getByCurrencyCode(preferredcurrency);
-	}
-
+    public Currency getByCurrencyCode(String currencyCode) {
+	return currencyRepo.getByCurrencyCode(currencyCode);
+    }
 }
