@@ -37,5 +37,9 @@ public class UserService {
 		userRepo.save(user);
 		
 	}
+	
+	public User getUserByUsername(String username) {
+	    return userRepo.getByUsername(username);
+	}
 
 }

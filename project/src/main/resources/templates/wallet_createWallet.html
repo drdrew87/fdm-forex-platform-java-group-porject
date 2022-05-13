@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th= " http://www.thymeleaf.org ">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<form th:action="@{/{username}/wallet/createWallet(username=${username})}" th:object="${currencyList}" method="post">
+			<label>New Wallet Currency</label>
+			<input list="walletCurrency" id="walletCurrencyCode" name="walletCurrencyCode"/>
+			<datalist id="walletCurrency">
+				<option th:each="currency : ${currencyList}" th:value="${currency.currencyCode}" th:label="${currency.currencyName}">
+			</datalist>
+			<button type="submit">Add new wallet</button>
+		</form>
+	</div>
+</body>
+</html>
