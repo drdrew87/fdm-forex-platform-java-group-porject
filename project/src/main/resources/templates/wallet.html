@@ -6,7 +6,10 @@
 </head>
 <body>
 <div class="container">
-
+	<div th:if="${emptyWalletList}">
+		<span th:text="'No wallet found in account'"></span>
+	</div>
+	<div th:unless="${emptyWalletList}">
 	<div>
 	    <table class="table table-bordered table-striped">
 	        <thead>
@@ -29,6 +32,11 @@
 	        </tbody>
 	    </table>
 	</div>
+
+	<div>
+		  <span th:text="'TOTAL VALUE: ' + ${#numbers.formatDecimal(totalValue,3,'COMMA',2,'POINT')} + ' ' + ${#strings.toUpperCase(preferredCurrency)}"></span>
+	</div>
+	</div>
 	
 	<div>
 		<form th:action="@{/{username}/wallet/createWallet(username=${username})}" method="get">
@@ -36,12 +44,12 @@
 		</form>
 	</div>
 
-	<div>
-		  <span th:text="'TOTAL VALUE: ' + ${#numbers.formatDecimal(totalValue,3,'COMMA',2,'POINT')} + ' ' + ${#strings.toUpperCase(preferredCurrency)}"></span>
+	
+	
+	<div th:if="${emptyBankList}">
+		<span th:text="'No bank account found'"></span>
 	</div>
-	
-	
-	<div>
+	<div th:unless="${emptyBankList}">
 	    <table class="table table-bordered table-striped">
 	        <thead>
 	        <tr>

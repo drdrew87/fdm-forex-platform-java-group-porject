@@ -35,9 +35,16 @@ public class WalletController {
         
         List<Wallet> listWallets = walletService.getWalletByUser(user);
         model.addAttribute("listWallets", listWallets);
+        if (listWallets.size()==0) {
+            model.addAttribute("emptyWalletList", true);
+        }
 
         List<Bank> listBanks = bankService.getBankByUser(user);
         model.addAttribute("listBanks", listBanks);
+        if (listBanks.size()==0) {
+            System.out.println("empty");
+            model.addAttribute("emptyBankList", true);
+        }
 
         Double totalValue = walletService.totalValue(user);
         model.addAttribute("totalValue", totalValue);
