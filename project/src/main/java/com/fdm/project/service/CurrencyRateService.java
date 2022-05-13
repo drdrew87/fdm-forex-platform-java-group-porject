@@ -30,7 +30,7 @@ public class CurrencyRateService {
         return currencyResponse;
     }
 
-    @Scheduled(fixedRate = 1000 * 10)
+    @Scheduled(fixedRate = 1000 * 300)
     public void updateCurrencyRates() {
         CurrencyResponse currencyResponse = restTemplate.getForObject("https://api.coingecko.com/api/v3/exchange_rates", CurrencyResponse.class);
         Map<String, CurrencyRate> currencyRate = currencyResponse.getRates();
