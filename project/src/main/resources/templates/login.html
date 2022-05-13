@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Stanley | Login</title>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 </head>
 
 <header>
@@ -16,12 +17,14 @@
 
 <body>
 	
-	<div class="login-box">
+	<div class="landing-box">
 		<div class="input-group">
-			<p>Welcome back!</p>
+			<p><strong>Welcome back!</strong></p>
+			<br><br>
 			<form action="/login" method="post" id="login">
 				<input type="text" name="username" placeholder="Username" class="input-field" required>
 				<input type="password" name="password" placeholder="Password" class="input-field" required>
+				<br>
 				<button type = "submit" class="submit-btn">LOGIN</button>
 			</form> 
 		</div>
