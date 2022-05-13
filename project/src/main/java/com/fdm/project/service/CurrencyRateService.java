@@ -34,7 +34,6 @@ public class CurrencyRateService {
     public void updateCurrencyRates() {
         CurrencyResponse currencyResponse = restTemplate.getForObject("https://api.coingecko.com/api/v3/exchange_rates", CurrencyResponse.class);
         Map<String, CurrencyRate> currencyRate = currencyResponse.getRates();
-        System.out.println(currencyRate.values());
         for (Map.Entry<String, CurrencyRate> entry : currencyRate.entrySet()) {
             if (entry.getValue().getType().equals("fiat")) {
                 if (currencyRepo.findByCurrencyCode(entry.getKey()).isEmpty()) {
