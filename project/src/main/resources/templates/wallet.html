@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>wallet</title>
+</head>
+<body>
+<div class="container">
+
+	<div>
+	    <table class="table table-bordered table-striped">
+	        <thead>
+	        <tr>
+	            <th>CURRENCY</th>
+	            <th>AMOUNT</th>
+	        </tr>
+	        </thead>
+	        <tbody>
+	        <tr th:each="wallets: ${listWallets}">
+	            <td th:text="${#strings.toUpperCase(wallets.currency.currencyCode)}" />
+	            <td th:text="${#numbers.formatDecimal(wallets.walletBalance,3,'COMMA',2,'POINT')}" />
+	
+	            <td>
+	            	<form th:action="@{/{username}/wallet/transfer(username=${username})}" method="get">
+	    				<button type="submit">Transfer</button>
+					</form>
+	            </td>
+	        </tr>
+	        </tbody>
+	    </table>
+	</div>
+	
+	<div>
+		<form th:action="@{/{username}/wallet/createWallet(username=${username})}" method="get">
+	    	<button type="submit">Create Wallet</button>
+		</form>
+	</div>
+
+	<div>
+		  <span th:text="'TOTAL VALUE: ' + ${#numbers.formatDecimal(totalValue,3,'COMMA',2,'POINT')} + ' ' + ${#strings.toUpperCase(preferredCurrency)}"></span>
+	</div>
+	
+	
+	<div>
+	    <table class="table table-bordered table-striped">
+	        <thead>
+	        <tr>
+	            <th>BANK ACCOUNT #</th>
+	            <th>CURRENCY</th>
+	        </tr>
+	        </thead>
+	        <tbody>
+	        <tr th:each="banks: ${listBanks}">
+	            <td th:text="${banks.bankAccountNumber}" />
+	            <td th:text="${#strings.toUpperCase(banks.currency.currencyCode)}" />
+	        </tr>
+	        </tbody>
+	    </table>
+	</div>
+	
+	<div>
+    	<form th:action="@{/{username}/wallet/registerBankAccount(username=${username})}" method="get">
+	    	<button type="submit">Register bank account</button>
+		</form>
+    </div>
+    
+</div>
+
+</body>
+</html>
