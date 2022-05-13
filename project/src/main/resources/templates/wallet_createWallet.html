@@ -7,12 +7,18 @@
 <body>
 	<div>
 		<form th:action="@{/{username}/wallet/createWallet(username=${username})}" th:object="${currencyList}" method="post">
-			<label>New Wallet Currency</label>
-			<input list="walletCurrency" id="walletCurrencyCode" name="walletCurrencyCode"/>
-			<datalist id="walletCurrency">
-				<option th:each="currency : ${currencyList}" th:value="${currency.currencyCode}" th:label="${currency.currencyName}">
-			</datalist>
-			<button type="submit">Add new wallet</button>
+			<div>
+				<label>New Wallet Currency</label>
+			</div>
+			<div>
+				<input list="walletCurrency" id="walletCurrencyCode" name="walletCurrencyCode" required/>
+				<datalist id="walletCurrency">
+					<option th:each="currency : ${currencyList}" th:value="${currency.currencyCode}" th:label="${currency.currencyName}">
+				</datalist>
+			</div>
+			<div>
+				<button type="submit">Add new wallet</button>
+			</div>
 		</form>
 	</div>
 </body>
