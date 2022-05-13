@@ -13,7 +13,7 @@ public class CurrencyService {
     @Autowired
     private CurrencyRepo currencyRepo;
     
-    public List<Currency> findAllCurrency() {
+    public List<Currency> getAllCurrency() {
 	return currencyRepo.findAll();
     }
     
