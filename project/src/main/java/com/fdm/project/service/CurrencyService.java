@@ -20,4 +20,8 @@ public class CurrencyService {
     public Currency findByCurrencyId(int currencyId) {
 	return currencyRepo.getById(currencyId);
     }
+
+    public Currency findByCurrencyCode(String currencyCode) {
+	return currencyRepo.getByCurrencyCode(currencyCode);
+    }
 }
