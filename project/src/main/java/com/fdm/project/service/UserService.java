@@ -16,7 +16,7 @@ public class UserService {
 		
 		User user = userRepo.getByUsername(username);
 		
-		if (user.getPassword().equals(password)) {
+		if (user!=null && user.getPassword().equals(password)) {
 			return true;
 		} else {
 		return false;
