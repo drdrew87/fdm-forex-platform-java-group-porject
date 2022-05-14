@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Stanley | Wallet</title>
+</head>
+<body>
+	<div>
+		<div>
+			<p>Transfer Money to Wallet</p>
+		</div>
+		
+		<div>
+			<form method="post">
+				<label for="selectedBank">Choose Bank Account</label>
+				<select onchange="this.form.submit()" id="selectedBank" name="selectedBank">
+					<option th:each="bank:${bankList}" th:value="${bank.bankAccountId}" th:text="${bank.bankAccountNumber}"></option>
+				</select>
+			</form>
+		</div>
+		<div>
+			<form>
+				<label for="selectedWallet">Choose Wallet</label>
+				<select onchange="this.form.submit()" id="selectedWallet" name="selectedWallet">
+					<option th:each="wallet:${walletList}" th:value="${wallet.walletId}" th:text="${#strings.toUpperCase(wallet.currency.currencyCode)} + ' wallet'"></option>
+				</select>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
