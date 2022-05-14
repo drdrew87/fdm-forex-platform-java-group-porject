@@ -24,8 +24,8 @@
 	            <td th:text="${#numbers.formatDecimal(wallets.walletBalance,1,'COMMA',2,'POINT')}" />
 	
 	            <td>
-	            	<form th:action="@{/{username}/wallet/transfer(username=${username})}" method="get">
-	    				<button type="submit">Transfer</button>
+	            	<form th:action="@{/{username}/wallet/transfer/walletSelection(username=${username})}" method="post">
+	    				<button name="selectedWalletId" id="selectedWalletId" type="submit" th:value="${wallets.walletId}">Transfer</button>
 					</form>
 	            </td>
 	        </tr>
