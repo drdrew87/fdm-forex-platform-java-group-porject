@@ -3,8 +3,11 @@ package com.fdm.project.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.fdm.project.model.Currency;
 import com.fdm.project.model.User;
@@ -24,6 +27,10 @@ public class WalletService {
     
     public void addNewWallet(Wallet newWallet) {
 	walletRepo.save(newWallet);
+    }
+    
+    public void updateWallet(Wallet selectedWallet) {
+	walletRepo.save(selectedWallet);
     }
 
     public boolean validateNewWallet(String username, String newWalletCurrencyCode) {
@@ -53,4 +60,32 @@ public class WalletService {
 	
 	return Math.round(accountTotal * 100.00) / 100.00;
     }
+
+    public Wallet getWalletById(int walletId) {
+	return walletRepo.getById(walletId);
+    }
+
+    public void displayWalletListInDropdown(User currentUser, Model model) {
+	List<Wallet> walletList = walletRepo.getByUser(currentUser);
+	model.addAttribute("walletList", walletList);
+	if (walletList.size()==0) {
+	    model.addAttribute("emptyWalletList", true);
+	}
+    }
+
+    public boolean selectWallet(HttpSession session, Model model) {
+	boolean isWalletSelected = false;
+	String selectedWalletCurrency = null;
+	if (session.getAttribute("selectedWalletId") != null) {
+	    int selectedWalletId = Integer.valueOf((String) session.getAttribute("selectedWalletId"));
+	    Wallet selectedWallet = walletRepo.getById(selectedWalletId);
+	    selectedWalletCurrency = selectedWallet.getCurrency().getCurrencyCode();
+	    isWalletSelected = true;
+	    model.addAttribute("selectedWalletCurrency",selectedWalletCurrency);
+	    model.addAttribute("isWalletSelected", true);
+	}
+	return isWalletSelected;
+    }
+
+    
 }

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Stanley | Wallet</title>
+</head>
+<body>
+	<div>
+		<div>
+			<p>Transfer Money to Wallet</p>
+		</div>
+		
+		<div th:if="${emptyBankList}">
+			<p>Bank account information not available</p>
+		</div>
+		
+		<div th:unless="${emptyBankList}">
+			<div th:if="${isBankSelected}">
+				<p>Selected bank account: <span th:text="${#strings.toUpperCase(selectedBankCurrency)} + ' ' + ${selectedBankAccountNumber}"/></p>
+				<form th:action="@{/{username}/wallet/transfer/removeBankSelection(username=${username})}" method="post">
+					<button type="submit">Select another account</button>
+				</form>
+			</div>
+		
+			<div th:unless="${isBankSelected}">
+				<form th:action="@{/{username}/wallet/transfer/bankSelection(username=${username})}" method="post">
+					<label for="selectedBankId">Choose Bank Account</label>
+					<select onchange="this.form.submit()" id="selectedBankId" name="selectedBankId">
+						<option value="" selected disabled>Select bank account</option>
+						<option th:each="bank:${bankList}" th:value="${bank.bankAccountId}" th:text="${#strings.toUpperCase(bank.currency.currencyCode)} + ' ' + ${bank.bankAccountNumber}"></option>
+					</select>
+				</form>
+			</div>
+		</div>
+		
+		<div th:if="${emptyWalletList}">
+			<p>Wallet account information not available</p>
+		</div>
+		<div th:unless="${emptyWalletList}">
+			<div th:if="${isWalletSelected}">
+				<p>Selected wallet: <span th:text="${#strings.toUpperCase(selectedWalletCurrency)} + ' wallet'"/></p>
+				<form th:action="@{/{username}/wallet/transfer/removeWalletSelection(username=${username})}" method="post">
+					<button type="submit">Select another wallet</button>
+				</form>
+			</div>
+			
+			
+			<div th:unless="${isWalletSelected}">
+				<form th:action="@{/{username}/wallet/transfer/walletSelection(username=${username})}" method="post">
+					<label for="selectedWalletId">Choose Wallet</label>
+					<select onchange="this.form.submit()" id="selectedWalletId" name="selectedWalletId">
+						<option value="" selected disabled>Select wallet</option>
+						<option th:each="wallet:${walletList}" th:value="${wallet.walletId}" th:text="${#strings.toUpperCase(wallet.currency.currencyCode)} + ' wallet'"></option>
+					</select>
+				</form>
+			</div>
+		</div>
+		
+		<div th:if="${isBankSelected==true and isWalletSelected==true}">
+			<p>Exchange rate <span th:text="${#strings.toUpperCase(selectedBankCurrency)} + ' to ' + ${#strings.toUpperCase(selectedWalletCurrency)} + ': ' + ${#numbers.formatDecimal(exchangeRate,1,4,'POINT')}"/></p>
+			<form th:action="@{/{username}/wallet/transfer/confirmTransfer(username=${username})}" method="post">
+				<label for="transferAmount">Amount to receive</label>
+				<input id="transferAmount" name="transferAmount" placeholder="Enter amount to receive" required/>
+				<button>Transfer</button>
+			</form>
+		</div>
+		
+	</div>
+</body>
+</html>

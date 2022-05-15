@@ -21,11 +21,11 @@
 	        <tbody>
 	        <tr th:each="wallets: ${listWallets}">
 	            <td th:text="${#strings.toUpperCase(wallets.currency.currencyCode)}" />
-	            <td th:text="${#numbers.formatDecimal(wallets.walletBalance,3,'COMMA',2,'POINT')}" />
+	            <td th:text="${#numbers.formatDecimal(wallets.walletBalance,1,'COMMA',2,'POINT')}" />
 	
 	            <td>
-	            	<form th:action="@{/{username}/wallet/transfer(username=${username})}" method="get">
-	    				<button type="submit">Transfer</button>
+	            	<form th:action="@{/{username}/wallet/transfer/walletSelection(username=${username})}" method="post">
+	    				<button name="selectedWalletId" id="selectedWalletId" type="submit" th:value="${wallets.walletId}">Transfer</button>
 					</form>
 	            </td>
 	        </tr>
@@ -34,7 +34,7 @@
 	</div>
 
 	<div>
-		  <span th:text="'TOTAL VALUE: ' + ${#numbers.formatDecimal(totalValue,3,'COMMA',2,'POINT')} + ' ' + ${#strings.toUpperCase(preferredCurrency)}"></span>
+		  <span th:text="'TOTAL VALUE: ' + ${#numbers.formatDecimal(totalValue,1,'COMMA',2,'POINT')} + ' ' + ${#strings.toUpperCase(preferredCurrency)}"></span>
 	</div>
 	</div>
 	
