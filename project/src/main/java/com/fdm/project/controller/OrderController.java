@@ -24,28 +24,28 @@ public class OrderController {
     @Autowired
     SpotOrderForexService spotOrderForexService;
 
+
     @GetMapping("/forward")
     public String goToForwardPage(Model model) {
-        List<ForwardOrderForex> forwardOrderForexList=forwardOrderForexService.findAllForwardOrderForex();
-        model.addAttribute("forwardorderlist",forwardOrderForexList);
+        forwardOrderForexService.dumForwardOrder();
+        forwardOrderForexService.fakeForwardOrder();
+        List<ForwardOrderForex> forwardOrderForexList = forwardOrderForexService.findActiveForwardOrderForex();
+        model.addAttribute("forwardorderlist", forwardOrderForexList);
         return "forward";
-
-
     }
 
     @GetMapping("/orderboard")
     public String goToOrderBoardPage(Model model) {
         spotOrderForexService.fakeSpotOrder();
         spotOrderForexService.dumSpotOrder();
-//        List<ForwardOrderForex> forwardOrderForexList=forwardOrderForexService.findAllForwardOrderForex();
-//        model.addAttribute("forwardorderlist",forwardOrderForexList);
-        List<SpotOrderForex> spotOrderForexList= spotOrderForexService.findAllSpotOrderForex();
-        model.addAttribute("spotorderforexlist",spotOrderForexList);
-
-
+        forwardOrderForexService.dumForwardOrder();
+        forwardOrderForexService.fakeForwardOrder();
+        List<ForwardOrderForex> forwardOrderForexList = forwardOrderForexService.findActiveForwardOrderForex();
+        model.addAttribute("forwardorderlist", forwardOrderForexList);
+        List<SpotOrderForex> spotOrderForexList = spotOrderForexService.findActiveSpotOrderForex();
+        model.addAttribute("spotorderforexlist", spotOrderForexList);
         return "orderboard";
     }
 
 
-
-    }
+}

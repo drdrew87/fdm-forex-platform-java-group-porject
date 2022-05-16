@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th= "http://www.thymeleaf.org">
+<style>td {
+  text-align: center;
+}</style>
 <head>
     <meta charset="UTF-8">
     <title>Forward</title>
@@ -42,12 +45,12 @@
         </thead>
         <tbody>
         <tr th:each="forexorder : ${forwardorderlist}">
-            <td><span th:text="${forwardorderlist.orderId}"> </span></td>
-            <td><span th:text="${forwardorderlist.buyCurrency}">  </span></td>
-            <td><span th:text="${forwardorderlist.buyAmount}">  </span></td>
-            <td><span th:text="${forwardorderlist.sellCurrency}">   </span></td>
-            <td><span th:text="${forwardorderlist.sellAmount}">  </span></td>
-            <td><span th:text="${forwardorderlist.expiryDate()}">  </span></td>
+            <td><span th:text="${forexorder.orderId}"> </span></td>
+            <td><span th:text="${forexorder.buyCurrency.currencyCode}">  </span></td>
+            <td><span th:text="${forexorder.buyAmount}">  </span></td>
+            <td><span th:text="${forexorder.sellCurrency.currencyCode}">   </span></td>
+            <td><span th:text="${forexorder.sellAmount}">  </span></td>
+            <td><span th:text="${forexorder.expiryDate}">  </span></td>
         </tr>
         </tbody>
     </table>

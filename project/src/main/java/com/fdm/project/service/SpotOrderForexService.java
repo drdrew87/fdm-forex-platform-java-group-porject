@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
+
 @Service
 public class SpotOrderForexService {
     @Autowired
@@ -23,13 +24,18 @@ public class SpotOrderForexService {
     @Autowired
     private CurrencyRepo currencyRepo;
 
-    public List<SpotOrderForex> findAllSpotOrderForex(){
+    public List<SpotOrderForex> findAllSpotOrderForex() {
+        return spotOrderForexRepo.findAll();
+    }
+
+    public List<SpotOrderForex> findActiveSpotOrderForex() {
         return spotOrderForexRepo.findByIsActive(true).get();
     }
-    public void fakeSpotOrder(){
-        SpotOrderForex spotOrderForex =new SpotOrderForex();
+
+    public void fakeSpotOrder() {
+        SpotOrderForex spotOrderForex = new SpotOrderForex();
         Currency currency = currencyRepo.findById(10).get();
-        Currency currency1 =currencyRepo.findById(12).get();
+        Currency currency1 = currencyRepo.findById(12).get();
         User user = userRepo.getById(1);
         spotOrderForex.setActive(true);
         spotOrderForex.setUser(user);
@@ -45,10 +51,10 @@ public class SpotOrderForexService {
 
     }
 
-    public void dumSpotOrder(){
-        SpotOrderForex spotOrderForex =new SpotOrderForex();
+    public void dumSpotOrder() {
+        SpotOrderForex spotOrderForex = new SpotOrderForex();
         Currency currency = currencyRepo.findById(10).get();
-        Currency currency1 =currencyRepo.findById(12).get();
+        Currency currency1 = currencyRepo.findById(12).get();
         User user = userRepo.getById(1);
         spotOrderForex.setActive(false);
         spotOrderForex.setUser(user);
