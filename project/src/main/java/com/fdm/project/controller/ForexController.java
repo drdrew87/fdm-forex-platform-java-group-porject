@@ -12,13 +12,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fdm.project.model.Currency;
 import com.fdm.project.model.SpotOrderForex;
+import com.fdm.project.model.SpotOrderTransaction;
 import com.fdm.project.model.User;
 import com.fdm.project.model.Wallet;
 import com.fdm.project.service.CurrencyService;
+import com.fdm.project.service.SpotOrderCleaningService;
 import com.fdm.project.service.SpotOrderForexService;
+import com.fdm.project.service.SpotOrderMatchingService;
 import com.fdm.project.service.UserService;
 import com.fdm.project.service.WalletService;
 
@@ -32,6 +36,10 @@ public class ForexController {
     private CurrencyService currencyService;
     @Autowired
     private SpotOrderForexService spotOrderForexService;
+    @Autowired
+    private SpotOrderMatchingService matchingService;
+    @Autowired
+    private SpotOrderCleaningService cleaningService;
     
     @GetMapping("/{username}/forex")
     public String accessForexPage(@PathVariable String username, Model model, HttpServletRequest request) {
@@ -58,6 +66,9 @@ public class ForexController {
 	boolean emptyLimitOrderList = spotOrderForexService.displayLimitOrderList(currentUser, model);
 	boolean emptyMarketOrderList = spotOrderForexService.displayMarketOrderList(currentUser, model);
 	
+	model.addAttribute("emptyLimitOrderList", emptyLimitOrderList);
+	model.addAttribute("emptyMarketOrderList", emptyMarketOrderList);
+	
 	return "forex";
     }
     
@@ -76,7 +87,7 @@ public class ForexController {
     }
     
     @PostMapping("/{username}/forex/submitOrder")
-    public String submitMarketOrder(@PathVariable String username, @RequestParam String buyCurrencyId, @RequestParam String sellCurrencyId, SpotOrderForex newOrder, Model model) {
+    public String submitMarketOrder(@PathVariable String username, @RequestParam String buyCurrencyId, @RequestParam String sellCurrencyId, SpotOrderForex newOrder, RedirectAttributes redirectAttrs) {
 	User currentUser = userService.getUserByUsername(username);
 	Currency buyCurrency = currencyService.getByCurrencyId(Integer.valueOf(buyCurrencyId));
 	Currency sellCurrency = currencyService.getByCurrencyId(Integer.valueOf(sellCurrencyId));
@@ -84,8 +95,12 @@ public class ForexController {
 	newOrder.setBuyCurrency(buyCurrency);
 	newOrder.setSellCurrency(sellCurrency);
 	newOrder.setActive(true);
-	spotOrderForexService.addNewSpotOrder(newOrder);
-	System.out.println(newOrder.getSellAmount());
+	if (spotOrderForexService.isValidSpotOrder(newOrder, redirectAttrs)) {
+	    spotOrderForexService.addNewSpotOrder(newOrder);
+	}
+	
+	matchingService.matchSpotOrder(newOrder, redirectAttrs);
+	cleaningService.cleanUpSpotOrders();
 	return "redirect:/"+ username + "/forex";
     }
 }

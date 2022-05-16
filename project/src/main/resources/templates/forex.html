@@ -41,6 +41,15 @@
 			</table>	
 		</div>
 
+		<div th:if="${orderCreated}">Order created successfully</div>
+		<div th:if="${orderStatus=='filled'}">Order fully filled</div>
+		<div th:if="${orderStatus=='partial'}">Order partially filled</div>
+		<div th:if="${differentCurrencyRequired}">Buy currency and sell currency cannot be the same</div>
+		<div th:if="${insufficientFund}">Insufficient fund in wallet</div>
+		<div th:if="${zeroBuyAmount}">Buy amount must be more than 0</div>
+		<div th:if="${invalidExcahngeRate}">Invalid exchange rate, rate exceeds market rate by more than 25%</div>
+		<div></div>
+
 		<div>
 			<form th:object="${newSpotOrder}" th:action="@{/{username}/forex/submitOrder(username=${username})}" method="post">
 				<div>
@@ -91,9 +100,13 @@
 	</div>
 	
 	<div>
+		
 		<div>
 			<h3>Limit Orders</h3>
-			<div>
+			<div th:if="${emptyLimitOrderList}">
+				<p>No limit order listed</p>
+			</div>
+			<div th:unless="${emptyLimitOrderList}">
 				<table>
 					<tr>
 						<th>ORDER</th>
@@ -117,7 +130,10 @@
 		
 		<div>
 			<h3>Market Orders</h3>
-			<div>
+			<div th:if="${emptyMarketOrderList}">
+				<p>No market order listed</p>
+			</div>
+			<div th:unless="${emptyMarketOrderList}">
 				<table>
 					<tr>
 						<th>ORDER</th>
@@ -128,9 +144,9 @@
 					</tr>
 					<tr th:each="order:${marketOrderList}">
 						<td><span th:text="${order.orderId}"></span></td>
-						<td><span th:text="${order.buyCurrency.currencyCode}"></span></td>
+						<td><span th:text="${#strings.toUpperCase(order.buyCurrency.currencyCode)}"></span></td>
 						<td><span th:text="${order.buyAmount}"></span></td>
-						<td><span th:text="${order.sellCurrency.currencyCode}"></span></td>
+						<td><span th:text="${#strings.toUpperCase(order.sellCurrency.currencyCode)}"></span></td>
 						<td><span th:text="${order.expiryDate}"></span></td>
 					</tr>
 				</table>
