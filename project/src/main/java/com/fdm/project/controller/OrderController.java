@@ -35,10 +35,13 @@ public class OrderController {
 
     @GetMapping("/orderboard")
     public String goToOrderBoardPage(Model model) {
-        List<ForwardOrderForex> forwardOrderForexList=forwardOrderForexService.findAllForwardOrderForex();
-        model.addAttribute("forwardorderlist",forwardOrderForexList);
+        spotOrderForexService.fakeSpotOrder();
+        spotOrderForexService.dumSpotOrder();
+//        List<ForwardOrderForex> forwardOrderForexList=forwardOrderForexService.findAllForwardOrderForex();
+//        model.addAttribute("forwardorderlist",forwardOrderForexList);
         List<SpotOrderForex> spotOrderForexList= spotOrderForexService.findAllSpotOrderForex();
         model.addAttribute("spotorderforexlist",spotOrderForexList);
+
 
         return "orderboard";
     }
