@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Stanley | Forex</title>
+</head>
+<body>
+	<div>
+		<div>
+			<table>
+				<tr>
+					<td>Balance: </td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<table>
+				<tr>
+					<td th:if="${orderType=='market'}">
+						<form>
+							<button disabled>MARKET</button>
+						</form>
+					</td>
+					<td th:if="${orderType=='market'}">
+						<form  th:action="@{/{username}/forex/limitOrder(username=${username})}" method="post">
+							<button>LIMIT</button>
+						</form>
+					</td>
+					<td th:unless="${orderType=='market'}">
+						<form th:action="@{/{username}/forex/marketOrder(username=${username})}" method="post">
+							<button>MARKET</button>
+						</form>
+					</td>
+					<td th:unless="${orderType=='market'}">
+						<form>
+							<button disabled>LIMIT</button>
+						</form>
+					</td>
+				</tr>
+			</table>	
+		</div>
+
+		<div>
+			<form th:object="${newSpotOrder}" th:action="@{/{username}/forex/submitOrder(username=${username})}" method="post">
+				<div>
+					<label>Buy Currency</label>
+				</div>
+				<div>
+					<select name="buyCurrencyId" id="buyCurrencyId" required>
+						<option value="" selected disabled>Choose buy currency</option>
+						<option th:each="currency:${buyCurrencies}" th:value="${currency.currencyId}" th:text="${#strings.toUpperCase(currency.currencyCode)}">
+					</select>
+				</div>
+				<div>
+					<label>Buy Amount</label>
+				</div>
+				<div>
+					<input th:field="*{buyAmount}" required>
+				</div>
+				<div>
+					<label>Sell Currency</label>
+				</div>
+				<div>
+					<select name="sellCurrencyId" id="sellCurrencyId" required>
+						<option th:if="${emptyWalletList}" value="" selected disabled>No wallet available for user</option>
+						<option th:unless="${emptyWalletList}" value="" selected disabled>Choose sell currency</option>
+						<option th:each="wallet:${userWallets}" th:value="${wallet.currency.currencyId}" th:text="${#strings.toUpperCase(wallet.currency.currencyCode)}" >
+					</select>
+				</div>
+				<div th:if="${orderType=='limit'}">
+					<div>
+						<label>Sell Amount</label>
+					</div>
+					<div>
+						<input th:field="*{sellAmount}">
+					</div>
+				</div>
+				<div>
+					<label>Expiry Date</label>
+				</div>
+				<div>
+					<input th:field="*{expiryDate}" type="date" required>
+				</div>
+				<div>
+					<button th:if="${orderType=='market'}" type="submit">Submit market order</button>
+					<button th:unless="${orderType=='market'}" type="submit">Submit limit order</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<div>
+		<div>
+			<h3>Limit Orders</h3>
+			<div>
+				<table>
+					<tr>
+						<th>ORDER</th>
+						<th>BUY</th>
+						<th>AMOUNT</th>
+						<th>SELL</th>
+						<th>AMOUNT</th>
+						<th>EXPIRY</th>
+					</tr>
+					<tr th:each="order:${limitOrderList}">
+						<td><span th:text="${order.orderId}"></span></td>
+						<td><span th:text="${#strings.toUpperCase(order.buyCurrency.currencyCode)}"></span></td>
+						<td><span th:text="${order.buyAmount}"></span></td>
+						<td><span th:text="${#strings.toUpperCase(order.sellCurrency.currencyCode)}"></span></td>
+						<td><span th:text="${order.sellAmount}"></span></td>
+						<td><span th:text="${order.expiryDate}"></span></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		<div>
+			<h3>Market Orders</h3>
+			<div>
+				<table>
+					<tr>
+						<th>ORDER</th>
+						<th>BUY</th>
+						<th>AMOUNT</th>
+						<th>SELL</th>
+						<th>EXPIRY</th>
+					</tr>
+					<tr th:each="order:${marketOrderList}">
+						<td><span th:text="${order.orderId}"></span></td>
+						<td><span th:text="${order.buyCurrency.currencyCode}"></span></td>
+						<td><span th:text="${order.buyAmount}"></span></td>
+						<td><span th:text="${order.sellCurrency.currencyCode}"></span></td>
+						<td><span th:text="${order.expiryDate}"></span></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
