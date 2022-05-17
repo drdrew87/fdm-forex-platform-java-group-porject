@@ -13,4 +13,5 @@ import com.fdm.project.model.User;
 public interface ForwardOrderTransactionRepo extends JpaRepository<ForwardOrderTransaction, Integer>{
     List<ForwardOrderTransaction> getByOrderCreator(User orderCreator);
     Optional<List<ForwardOrderTransaction>> findByOrderCreator(User orderCreator);
+    List<ForwardOrderTransaction> findAll();
 }
