@@ -41,8 +41,8 @@ public class ForwardOrderTransaction {
     @Column(name = "order_exchange_rate")
     private double orderExchangeRate;
     
-    @Column(name = "order_expiry_date")
-    private Date orderExpiryDate;
+    @Column(name = "order_closing_date")
+    private Date orderClosingDate;
     
     @Column(name = "creator_received_amount")
     private double creatorReceivedAmount;
@@ -99,12 +99,14 @@ public class ForwardOrderTransaction {
         this.orderExchangeRate = orderExchangeRate;
     }
 
-    public Date getOrderExpiryDate() {
-        return orderExpiryDate;
+
+
+    public Date getOrderClosingDate() {
+        return orderClosingDate;
     }
 
-    public void setOrderExpiryDate(Date orderExpiryDate) {
-        this.orderExpiryDate = orderExpiryDate;
+    public void setOrderClosingDate(Date orderClosingDate) {
+        this.orderClosingDate = orderClosingDate;
     }
 
     public int getTransactionId() {
