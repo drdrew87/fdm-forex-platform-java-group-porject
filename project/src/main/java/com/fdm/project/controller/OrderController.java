@@ -2,6 +2,7 @@ package com.fdm.project.controller;
 
 import com.fdm.project.model.ForwardOrderForex;
 import com.fdm.project.model.SpotOrderForex;
+import com.fdm.project.service.DumService;
 import com.fdm.project.service.ForwardOrderForexService;
 import com.fdm.project.service.SpotOrderForexService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,12 @@ public class OrderController {
     @Autowired
     SpotOrderForexService spotOrderForexService;
 
+    @Autowired
+    DumService dumService;
+
 
     @GetMapping("/forward")
     public String goToForwardPage(Model model) {
-        forwardOrderForexService.dumForwardOrder();
-        forwardOrderForexService.fakeForwardOrder();
         List<ForwardOrderForex> forwardOrderForexList = forwardOrderForexService.findActiveForwardOrderForex();
         model.addAttribute("forwardorderlist", forwardOrderForexList);
         return "forward";
@@ -36,14 +38,12 @@ public class OrderController {
 
     @GetMapping("/orderboard")
     public String goToOrderBoardPage(Model model) {
-        spotOrderForexService.fakeSpotOrder();
-        spotOrderForexService.dumSpotOrder();
-        forwardOrderForexService.dumForwardOrder();
-        forwardOrderForexService.fakeForwardOrder();
         List<ForwardOrderForex> forwardOrderForexList = forwardOrderForexService.findActiveForwardOrderForex();
         model.addAttribute("forwardorderlist", forwardOrderForexList);
-        List<SpotOrderForex> spotOrderForexList = spotOrderForexService.findActiveSpotOrderForex();
-        model.addAttribute("spotorderforexlist", spotOrderForexList);
+        List<SpotOrderForex> activeLimitSpotOrderForexList = spotOrderForexService.findActiveLimitSpotOrderForex();
+        model.addAttribute("limitspotorderforexlist", activeLimitSpotOrderForexList);
+        List<SpotOrderForex> activeMarketSpotOrderForexList = spotOrderForexService.findActiveMarketSpotOrderForex();
+        model.addAttribute("marketspotorderforexlist", activeMarketSpotOrderForexList);
         return "orderboard";
     }
 

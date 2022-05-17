@@ -28,45 +28,13 @@ public class SpotOrderForexService {
         return spotOrderForexRepo.findAll();
     }
 
-    public List<SpotOrderForex> findActiveSpotOrderForex() {
-        return spotOrderForexRepo.findByIsActive(true).get();
+    public List<SpotOrderForex> findActiveMarketSpotOrderForex() {
+        return spotOrderForexRepo.findByIsActiveAndSellAmount(true,0).get();
     }
 
-    public void fakeSpotOrder() {
-        SpotOrderForex spotOrderForex = new SpotOrderForex();
-        Currency currency = currencyRepo.findById(10).get();
-        Currency currency1 = currencyRepo.findById(12).get();
-        User user = userRepo.getById(1);
-        spotOrderForex.setActive(true);
-        spotOrderForex.setUser(user);
-        spotOrderForex.setBuyAmount(500);
-        spotOrderForex.setBuyCurrency(currency);
-        spotOrderForex.setSellCurrency(currency1);
-        spotOrderForex.setSellAmount(5200);
-        java.util.Date date = new java.util.Date();
-        long timeInMilliSeconds = date.getTime();
-        java.sql.Date date1 = new java.sql.Date(timeInMilliSeconds);
-        spotOrderForex.setExpiryDate(date1);
-        spotOrderForexRepo.save(spotOrderForex);
-
+    public List<SpotOrderForex> findActiveLimitSpotOrderForex() {
+        return spotOrderForexRepo.findByIsActiveAndSellAmountIsNot(true,0).get();
     }
 
-    public void dumSpotOrder() {
-        SpotOrderForex spotOrderForex = new SpotOrderForex();
-        Currency currency = currencyRepo.findById(10).get();
-        Currency currency1 = currencyRepo.findById(12).get();
-        User user = userRepo.getById(1);
-        spotOrderForex.setActive(false);
-        spotOrderForex.setUser(user);
-        spotOrderForex.setBuyAmount(500);
-        spotOrderForex.setBuyCurrency(currency);
-        spotOrderForex.setSellCurrency(currency1);
-        spotOrderForex.setSellAmount(5200);
-        java.util.Date date = new java.util.Date();
-        long timeInMilliSeconds = date.getTime();
-        java.sql.Date date1 = new java.sql.Date(timeInMilliSeconds);
-        spotOrderForex.setExpiryDate(date1);
-        spotOrderForexRepo.save(spotOrderForex);
 
-    }
 }

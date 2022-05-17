@@ -34,42 +34,5 @@ public class ForwardOrderForexService {
     }
 
 
-    public void fakeForwardOrder() {
-        ForwardOrderForex forwardOrderForex = new ForwardOrderForex();
-        Currency currency = currencyRepo.findById(10).get();
-        Currency currency1 = currencyRepo.findById(12).get();
-        User user = userRepo.getById(1);
-        forwardOrderForex.setUser(user);
-        forwardOrderForex.setActive(true);
-        forwardOrderForex.setBuyAmount(500);
-        forwardOrderForex.setSellAmount(560);
-        forwardOrderForex.setBuyCurrency(currency);
-        forwardOrderForex.setSellCurrency(currency1);
-        java.util.Date date = new java.util.Date();
-        long timeInMilliSeconds = date.getTime();
-        java.sql.Date date1 = new java.sql.Date(timeInMilliSeconds);
-        forwardOrderForex.setClosingDate(date1);
-        forwardOrderForex.setExpiryDate(date1);
-        forwardOrderForexRepo.save(forwardOrderForex);
 
-    }
-
-    public void dumForwardOrder() {
-        ForwardOrderForex forwardOrderForex = new ForwardOrderForex();
-        Currency currency = currencyRepo.findById(10).get();
-        Currency currency1 = currencyRepo.findById(12).get();
-        User user = userRepo.getById(1);
-        forwardOrderForex.setUser(user);
-        forwardOrderForex.setActive(false);
-        forwardOrderForex.setBuyAmount(500);
-        forwardOrderForex.setSellAmount(560);
-        forwardOrderForex.setBuyCurrency(currency);
-        forwardOrderForex.setSellCurrency(currency1);
-        java.util.Date date = new java.util.Date();
-        long timeInMilliSeconds = date.getTime();
-        java.sql.Date date1 = new java.sql.Date(timeInMilliSeconds);
-        forwardOrderForex.setClosingDate(date1);
-        forwardOrderForex.setExpiryDate(date1);
-        forwardOrderForexRepo.save(forwardOrderForex);
-    }
 }

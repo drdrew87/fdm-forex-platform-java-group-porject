@@ -20,6 +20,8 @@
 <body>
 
 <div class="order-table">
+    <h3> Forward Trade</h3>
+
     <table>
         <thead>
         <tr>
@@ -43,6 +45,8 @@
         </tbody>
     </table>
 
+    <h3> Limit Trade</h3>
+
     <table>
         <thead>
         <tr>
@@ -55,13 +59,34 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="spotorderforex : ${spotorderforexlist}">
-            <td><span th:text="${spotorderforex.orderId}"> </span></td>
-            <td><span th:text="${spotorderforex.buyCurrency.currencyCode}">  </span></td>
-            <td><span th:text="${spotorderforex.buyAmount}">  </span></td>
-            <td><span th:text="${spotorderforex.sellCurrency.currencyCode}">   </span></td>
-            <td><span th:text="${spotorderforex.sellAmount}">  </span></td>
-            <td><span th:text="${spotorderforex.expiryDate}">  </span></td>
+        <tr th:each="limitspotorderforex : ${limitspotorderforexlist}">
+            <td><span th:text="${limitspotorderforex.orderId}"> </span></td>
+            <td><span th:text="${limitspotorderforex.buyCurrency.currencyCode}">  </span></td>
+            <td><span th:text="${limitspotorderforex.buyAmount}">  </span></td>
+            <td><span th:text="${limitspotorderforex.sellCurrency.currencyCode}">   </span></td>
+            <td><span th:text="${limitspotorderforex.sellAmount}">  </span></td>
+            <td><span th:text="${limitspotorderforex.expiryDate}">  </span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3> Market Trade</h3>
+
+    <table>
+        <thead>
+        <tr>
+            <th> ORDER  </th>
+            <th> CUR 1 </th>
+            <th> AMOUNT </th>
+            <th> EXPIRT </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="marketspotorderforex : ${marketspotorderforexlist}">
+            <td><span th:text="${marketspotorderforex.orderId}"> </span></td>
+            <td><span th:text="${marketspotorderforex.buyCurrency.currencyCode}">  </span></td>
+            <td><span th:text="${marketspotorderforex.buyAmount}">  </span></td>
+            <td><span th:text="${marketspotorderforex.expiryDate}">  </span></td>
         </tr>
         </tbody>
     </table>
