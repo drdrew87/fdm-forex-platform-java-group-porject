@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragments - Top NavBar Template</title>
+</head>
+
+<body>
+	<nav th:fragment="navbar">
+		<ul>
+			<li><a href="/Stanley/{username}/portfolio" id="stanley">STANLEY</a></li>
+			<li><a href="/Stanley/{username}/forex">Forex</a></li>
+			<li><a href="/Stanley/{username}/forward">Forwards</a></li>
+			<li><a href="/Stanley/{username}/orderboard">Order Board</a></li>
+			<li><a href="/Stanley/{username}/wallet">Wallet</a></li>
+			<li>
+				<form th:action="@{/logout}" th:object="${user}" method="post">
+					<button type="submit" class="landing-nav-btn" onclick="location.href='landing'">Logout</button>
+				</form>
+			</li>
+		</ul>
+	</nav>
+	
+</body>
+</html>
