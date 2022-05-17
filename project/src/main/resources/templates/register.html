@@ -26,7 +26,7 @@
 				<input type="password" name="confirmpassword" placeholder="Confirm Password" class="input-field" id="register_confirmpassword" required>
 				<input  list="currencies"  name="preferredcurrency" class="input-field" placeholder="Please select your preferred currency" required>	
 					<datalist id="currencies">
-							<option th:each="currency:${currencies}" th:value="${currency.currencyCode}"  th:label="${currency.currencyName}"></option>
+							<option th:each="currency:${currencies}" th:value="${#strings.toUpperCase(currency.currencyCode)}"  th:label="${currency.currencyName}"></option>
 					</datalist>
 				<button type = "submit" class="submit-btn" id="register_submit" onclick="checkPasswordMatch(event)">REGISTER</button>
 				<br>
