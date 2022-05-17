@@ -8,11 +8,11 @@
 <body>
 	<nav th:fragment="navbar">
 		<ul>
-			<li><a href="/Stanley/{username}/portfolio" id="stanley">STANLEY</a></li>
-			<li><a href="/Stanley/{username}/forex">Forex</a></li>
-			<li><a href="/Stanley/{username}/forward">Forwards</a></li>
-			<li><a href="/Stanley/{username}/orderboard">Order Board</a></li>
-			<li><a href="/Stanley/{username}/wallet">Wallet</a></li>
+			<li><a th:href="@{/{username}/portfolio(username=${username})}" id="stanley">STANLEY</a></li>
+			<li><a th:href="@{/{username}/forex(username=${username})}">Forex</a></li>
+			<li><a th:href="@{/{username}/forward(username=${username})}">Forwards</a></li>
+			<li><a th:href="@{/{username}/orderboard(username=${username})}">Order Board</a></li>
+			<li><a th:href="@{/{username}/wallet(username=${username})}">Wallet</a></li>
 			<li>
 				<form th:action="@{/logout}" th:object="${user}" method="post">
 					<button type="submit" class="landing-nav-btn" onclick="location.href='landing'">Logout</button>
