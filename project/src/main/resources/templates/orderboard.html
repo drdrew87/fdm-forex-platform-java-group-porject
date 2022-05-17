@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>OrderBoard</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+</head>
+<style>td {
+  text-align: center;
+}</style>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/Stanley/" id="stanley">STANLEY</a></li>
+            <li><button type="button" class="landing-nav-btn" onclick="location.href='login'">Login</button></li>
+        </ul>
+    </nav>
+</header>
+
+<body>
+
+<div class="order-table">
+    <h3> Forward Trade</h3>
+
+    <table>
+        <thead>
+        <tr>
+            <th> ORDER  </th>
+            <th> CUR 1 </th>
+            <th> AMOUNT </th>
+            <th> CUR 2  </th>
+            <th> AMOUNT </th>
+            <th> EXPIRT </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="forexorder : ${forwardorderlist}">
+            <td><span th:text="${forexorder.orderId}"> </span></td>
+            <td><span th:text="${forexorder.buyCurrency.currencyCode}">  </span></td>
+            <td><span th:text="${forexorder.buyAmount}">  </span></td>
+            <td><span th:text="${forexorder.sellCurrency.currencyCode}">   </span></td>
+            <td><span th:text="${forexorder.sellAmount}">  </span></td>
+            <td><span th:text="${forexorder.expiryDate}">  </span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3> Limit Trade</h3>
+
+    <table>
+        <thead>
+        <tr>
+            <th> ORDER  </th>
+            <th> CUR 1 </th>
+            <th> AMOUNT </th>
+            <th> CUR 2  </th>
+            <th> AMOUNT </th>
+            <th> EXPIRT </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="limitspotorderforex : ${limitspotorderforexlist}">
+            <td><span th:text="${limitspotorderforex.orderId}"> </span></td>
+            <td><span th:text="${limitspotorderforex.buyCurrency.currencyCode}">  </span></td>
+            <td><span th:text="${limitspotorderforex.buyAmount}">  </span></td>
+            <td><span th:text="${limitspotorderforex.sellCurrency.currencyCode}">   </span></td>
+            <td><span th:text="${limitspotorderforex.sellAmount}">  </span></td>
+            <td><span th:text="${limitspotorderforex.expiryDate}">  </span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3> Market Trade</h3>
+
+    <table>
+        <thead>
+        <tr>
+            <th> ORDER  </th>
+            <th> CUR 1 </th>
+            <th> AMOUNT </th>
+            <th> EXPIRT </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="marketspotorderforex : ${marketspotorderforexlist}">
+            <td><span th:text="${marketspotorderforex.orderId}"> </span></td>
+            <td><span th:text="${marketspotorderforex.buyCurrency.currencyCode}">  </span></td>
+            <td><span th:text="${marketspotorderforex.buyAmount}">  </span></td>
+            <td><span th:text="${marketspotorderforex.expiryDate}">  </span></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
