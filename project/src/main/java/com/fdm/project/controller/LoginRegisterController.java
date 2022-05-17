@@ -33,7 +33,7 @@ public class LoginRegisterController {
 		return "login";
 	}
 
-	@PostMapping("/login")
+	@PostMapping("/home")
 	public String verifyUserForLogin(@RequestParam String username, @RequestParam String password, HttpServletRequest req) {
 		
 		boolean isValidUser = userService.verifyUser(username, password);
@@ -69,6 +69,10 @@ public class LoginRegisterController {
 		} else {
 		return "register";
 		}
+	}
+	@GetMapping("/home")
+	public String goToHomePage() {
+		return "home";
 	}
 	
 }
