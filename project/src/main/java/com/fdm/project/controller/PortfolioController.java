@@ -49,11 +49,9 @@ public class PortfolioController {
         List<SpotOrderTransaction> listSpotOrderTransactionHistory = spotTransactionService.getAllSpotOrderTransactionHistory();
         model.addAttribute("listSpotOrderTransactionHistory",listSpotOrderTransactionHistory);
 
-
-
-
         List<ForwardOrderTransaction> listForwardOrderTransaction = forwardTransactionService.getAllSpotOrderTransactionHistory();
         model.addAttribute("listForwardOrderTransaction",listForwardOrderTransaction);
+
         return "portfolio";
     }
 }
