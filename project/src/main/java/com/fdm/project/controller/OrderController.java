@@ -2,7 +2,6 @@ package com.fdm.project.controller;
 
 import com.fdm.project.model.ForwardOrderForex;
 import com.fdm.project.model.SpotOrderForex;
-import com.fdm.project.service.DumService;
 import com.fdm.project.service.ForwardOrderForexService;
 import com.fdm.project.service.SpotOrderForexService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,7 @@ public class OrderController {
     @Autowired
     SpotOrderForexService spotOrderForexService;
 
-    @Autowired
-    DumService dumService;
+
 
 
     @GetMapping("/forward")
