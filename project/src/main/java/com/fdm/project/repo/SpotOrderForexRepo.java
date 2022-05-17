@@ -14,8 +14,11 @@ import com.fdm.project.model.User;
 public interface SpotOrderForexRepo extends JpaRepository<SpotOrderForex, Integer>{
     List<SpotOrderForex> getByUser(User user);
     Optional<List<SpotOrderForex>> findByUser(User user);
-    
-    @Query("SELECT sof FROM SpotOrderForex sof "
+	Optional<List<SpotOrderForex>> findByIsActive(Boolean statement);
+	Optional<List<SpotOrderForex>>findByIsActiveAndSellAmount(boolean isActive, double sellAmount);
+	Optional<List<SpotOrderForex>>findByIsActiveAndSellAmountIsNot(boolean isActive, double sellAmount);
+
+	@Query("SELECT sof FROM SpotOrderForex sof "
     	+ "WHERE isActive = true "
     	+ "AND buyAmount > 0 "
     	+ "AND sellAmount > 0 "
