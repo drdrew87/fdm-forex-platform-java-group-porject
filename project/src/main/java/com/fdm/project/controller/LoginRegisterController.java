@@ -33,7 +33,7 @@ public class LoginRegisterController {
 		return "login";
 	}
 
-	@PostMapping("/home")
+	@PostMapping("/login")
 	public String verifyUserForLogin(@RequestParam String username, @RequestParam String password, HttpServletRequest req) {
 		
 		boolean isValidUser = userService.verifyUser(username, password);
