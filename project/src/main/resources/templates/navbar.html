@@ -13,6 +13,7 @@
 			<li><a th:href="@{/{username}/forward(username=${username})}">Forwards</a></li>
 			<li><a th:href="@{/{username}/orderboard(username=${username})}">Order Board</a></li>
 			<li><a th:href="@{/{username}/wallet(username=${username})}">Wallet</a></li>
+			<li><a th:href="@{/{username}/myProfile(username=${username})}">My Profile</a></li>
 			<li>
 				<form th:action="@{/logout}" th:object="${user}" method="post">
 					<button type="submit" class="landing-nav-btn" onclick="location.href='landing'">Logout</button>
