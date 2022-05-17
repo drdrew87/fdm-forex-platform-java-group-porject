@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th= " http://www.thymeleaf.org ">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+	<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 </head>
+
+<header th:insert="navbar :: navbar">
+</header>
+
 <body>
 	<div>
 		<form th:action="@{/{username}/wallet/createWallet(username=${username})}" th:object="${currencyList}" method="post">
