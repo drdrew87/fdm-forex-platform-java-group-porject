@@ -1,5 +1,6 @@
 package com.fdm.project.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -36,6 +37,12 @@ public class ForwardOrderTransaction {
     @ManyToOne
     @JoinColumn(name = "transaction_currency_id", referencedColumnName = "currency_id")
     private Currency transactionCurrency;
+    
+    @Column(name = "order_exchange_rate")
+    private double orderExchangeRate;
+    
+    @Column(name = "order_expiry_date")
+    private Date orderExpiryDate;
     
     @Column(name = "creator_received_amount")
     private double creatorReceivedAmount;
@@ -82,6 +89,22 @@ public class ForwardOrderTransaction {
 
     public void setCreatorReceivedAmount(double creatorReceivedAmount) {
         this.creatorReceivedAmount = creatorReceivedAmount;
+    }
+
+    public double getOrderExchangeRate() {
+        return orderExchangeRate;
+    }
+
+    public void setOrderExchangeRate(double orderExchangeRate) {
+        this.orderExchangeRate = orderExchangeRate;
+    }
+
+    public Date getOrderExpiryDate() {
+        return orderExpiryDate;
+    }
+
+    public void setOrderExpiryDate(Date orderExpiryDate) {
+        this.orderExpiryDate = orderExpiryDate;
     }
 
     public int getTransactionId() {
