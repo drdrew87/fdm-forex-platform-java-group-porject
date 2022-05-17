@@ -31,36 +31,6 @@ public class PortfolioController {
     private ForwardTransactionService forwardTransactionService;
 
 
-    @GetMapping("/{username}/forex")
-    public String gotoForex(@PathVariable String username, Model model) {
-        return "forex";
-    }
-
-    @GetMapping("/{username}/forwards")
-    public String gotoForwards(@PathVariable String username, Model model) {
-        return "forwards";
-    }
-
-    @GetMapping("/{username}/orderBoard")
-    public String goToOrderBoard(@PathVariable String username, Model model) {
-        return "orderBoard";
-    }
-
-    @GetMapping("/{username}/myWallet")
-    public String goToMyWallet(@PathVariable String username, Model model) {
-        return "wallet";
-    }
-
-    @GetMapping("/{username}/myProfile")
-    public String goToMyProfile(@PathVariable String username, Model model) {
-        return "myProfile";
-    }
-
-    @GetMapping("/{username}/logOut")
-    public String goToLogOut(@PathVariable String username, Model model) {
-        return "logOut";
-    }
-
     @GetMapping("/{username}/portfolio")
     public String goToPortfolio(@PathVariable String username, Model model) {
         User user = userService.getUserByUsername(username);
