@@ -38,6 +38,10 @@ public class ForwardOrderTransaction {
     @JoinColumn(name = "transaction_currency_id", referencedColumnName = "currency_id")
     private Currency transactionCurrency;
     
+    @ManyToOne
+    @JoinColumn(name = "order_sell_currency_id", referencedColumnName = "currency_id")
+    private Currency orderSellCurrency;
+    
     @Column(name = "order_exchange_rate")
     private double orderExchangeRate;
     
@@ -100,6 +104,14 @@ public class ForwardOrderTransaction {
     }
 
 
+
+    public Currency getOrderSellCurrency() {
+        return orderSellCurrency;
+    }
+
+    public void setOrderSellCurrency(Currency orderSellCurrency) {
+        this.orderSellCurrency = orderSellCurrency;
+    }
 
     public Date getOrderClosingDate() {
         return orderClosingDate;

@@ -1,60 +1,93 @@
 <!DOCTYPE html>
 <html xmlns:th= "http://www.thymeleaf.org">
-<style>td {
-  text-align: center;
-}</style>
 <head>
-    <meta charset="UTF-8">
-    <title>Forward</title>
-    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+<meta charset="UTF-8">
+<title>Stanley | Forward</title>
 </head>
-
-<header>
-    <nav>
-        <ul>
-            <li><a href="/Stanley/" id="stanley">STANLEY</a></li>
-            <li><button type="button" class="landing-nav-btn" onclick="location.href='login'">Login</button></li>
-        </ul>
-    </nav>
-</header>
-
 <body>
+	<div>
+		<h3>Create new forward order</h3>
+		<div th:if="${differentCurrencyRequired}">Buy currency and sell currency cannot be the same</div>
+		<div th:if="${insufficientFundNew}">Insufficient fund in wallet</div>
+		<div th:if="${zeroBuyAmount}">Buy amount or sell amount must be more than 0</div>
+		<form th:action="@{/{username}/forward/submitOrder(username=${username})}" th:object="${newForwardOrder}" method="post">
+			<div>
+				<label>Buy Currency</label>
+			</div>
+			<div>
+				<select name="buyCurrencyId" id="buyCurrencyId" required>
+					<option th:if="${emptyWalletList}" value="" selected disabled>No wallet available for user</option>
+					<option th:unless="${emptyWalletList}" value="" selected disabled>Choose sell currency</option>
+					<option th:each="wallet:${userWallets}" th:value="${wallet.currency.currencyId}" th:text="${#strings.toUpperCase(wallet.currency.currencyCode)} + ' - ' + ${wallet.currency.currencyName}" >
+				</select>
+			</div>
+			<div>
+				<label>Buy Amount</label>
+			</div>
+			<div>
+				<input th:field="*{buyAmount}">
+			</div>
+			<div>
+				<label>Sell Currency</label>
+			</div>
+			<div>
 
-<!--<div class="landing-box">-->
-<!--    <div class="welcome-box">-->
-<!--        <h1>Trade with Stanley</h1>-->
-<!--        <br><br><br>-->
-<!--        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,-->
-<!--            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>-->
-<!--        <br><br><br>-->
-<!--        <button type="button" id="landing-signupbtn" onclick="location.href='register'">Sign Up</button>-->
-<!--    </div>-->
-<!--</div>-->
-
-<div class="order-table">
-    <table>
-        <thead>
-        <tr>
-            <th> ORDER  </th>
-            <th> CUR 1 </th>
-            <th> AMOUNT </th>
-            <th> CUR 2  </th>
-            <th> AMOUNT </th>
-            <th> EXPIRT </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="forexorder : ${forwardorderlist}">
-            <td><span th:text="${forexorder.orderId}"> </span></td>
-            <td><span th:text="${forexorder.buyCurrency.currencyCode}">  </span></td>
-            <td><span th:text="${forexorder.buyAmount}">  </span></td>
-            <td><span th:text="${forexorder.sellCurrency.currencyCode}">   </span></td>
-            <td><span th:text="${forexorder.sellAmount}">  </span></td>
-            <td><span th:text="${forexorder.expiryDate}">  </span></td>
-        </tr>
-        </tbody>
-    </table>
-
-</div>
+				<select name="sellCurrencyId" id="sellCurrencyId" required>
+					<option value="" selected disabled>Choose buy currency</option>
+					<option th:each="currency:${buyCurrencies}" th:value="${currency.currencyId}" th:text="${#strings.toUpperCase(currency.currencyCode)} + ' - ' + ${currency.currencyName}">
+				</select>
+			</div>
+			<div>
+				<label>Sell Amount</label>
+			</div>
+			<div>
+				<input th:field="*{sellAmount}">
+			</div>
+			<div>
+				<label>Closing Date</label>
+			</div>
+			<div>
+				<input th:field="*{closingDate}" type="date">
+			</div>
+			<div>
+				<button type="submit">Submit new forward order</button>
+			</div>
+		</form>
+	</div>
+	
+	<div>
+		
+		<h3>Forward Orders</h3>
+		<div th:if="${emptyForwardOrderList}">
+			<p>No forward order listed</p>
+		</div>
+		<div th:unless="${emptyForwardOrderList}">
+		<table>
+			<tr>
+				<th>ORDER</th>
+				<th>BUY</th>
+				<th>AMOUNT</th>
+				<th>SELL</th>
+				<th>AMOUNT</th>
+				<th>CLOSING</th>
+				<th></th>
+			</tr>
+			<tr th:each="order: ${forwardOrderList}">
+				<td><span th:text="${order.orderId}"></span></td>
+				<td><span th:text="${#strings.toUpperCase(order.buyCurrency.currencyCode)}"></span></td>
+				<td><span th:text="${order.buyAmount}"></span></td>
+				<td><span th:text="${#strings.toUpperCase(order.sellCurrency.currencyCode)}"></span></td>
+				<td><span th:text="${order.sellAmount}"></span></td>
+				<td><span th:text="${order.closingDate}"></span></td>
+				<td>
+					<form th:action="@{/{username}/forward/submitBuyOrder(username=${username})}" method="post">
+						<button name="buyOrderId" id="buyOrderId" type="submit" th:value="${order.orderId}">Buy order</button>
+					</form>
+				</td>
+			</tr>
+		</table>
+		</div>
+		<div th:if="${insufficientFund}">Insufficient fund in wallet</div>
+	</div>
 </body>
 </html>
