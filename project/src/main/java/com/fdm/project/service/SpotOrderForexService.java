@@ -1,25 +1,37 @@
 package com.fdm.project.service;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fdm.project.model.Currency;
 import com.fdm.project.model.SpotOrderForex;
 import com.fdm.project.model.User;
 import com.fdm.project.model.Wallet;
+import com.fdm.project.repo.CurrencyRepo;
 import com.fdm.project.repo.SpotOrderForexRepo;
+import com.fdm.project.repo.UserRepo;
 import com.fdm.project.repo.WalletRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Service
 public class SpotOrderForexService {
     @Autowired
     private SpotOrderForexRepo spotOrderForexRepo;
+
+    @Autowired
+    private UserRepo userRepo;
+
+    @Autowired
+    private CurrencyRepo currencyRepo;
+
+    public List<SpotOrderForex> findAllSpotOrderForex() {
+        return spotOrderForexRepo.findAll();
+    }
+
+
     @Autowired
     private WalletRepo walletRepo;
 
@@ -38,7 +50,6 @@ public class SpotOrderForexService {
     public List<SpotOrderForex> findActiveLimitSpotOrderForex() {
         return spotOrderForexRepo.findByIsActiveAndSellAmountIsNot(true, 0).get();
     }
-
 
 
     public boolean displayLimitOrderList(User currentUser, Model model) {

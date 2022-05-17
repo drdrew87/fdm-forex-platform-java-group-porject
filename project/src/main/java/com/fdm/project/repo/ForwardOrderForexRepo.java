@@ -13,4 +13,5 @@ import com.fdm.project.model.User;
 public interface ForwardOrderForexRepo extends JpaRepository<ForwardOrderForex, Integer>{
     List<ForwardOrderForex> getByUser(User user);
     Optional<List<ForwardOrderForex>> findByUser(User user);
+    Optional<List<ForwardOrderForex>> findByIsActive(Boolean statement);
 }
