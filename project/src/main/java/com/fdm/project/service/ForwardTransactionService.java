@@ -18,4 +18,7 @@ public class ForwardTransactionService {
         return forwardOrderTransactionRepo.findAll();
     }
 
+    public List<ForwardOrderTransaction> getForwardOrderTransactionByUser(User user) {
+        return forwardOrderTransactionRepo.getByOrderCreator(user);
+    }
 }

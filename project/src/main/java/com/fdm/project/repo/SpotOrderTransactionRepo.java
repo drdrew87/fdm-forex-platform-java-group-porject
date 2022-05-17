@@ -15,4 +15,6 @@ public interface SpotOrderTransactionRepo extends JpaRepository<SpotOrderTransac
     List<SpotOrderTransaction> getByUser2(User user2);
     Optional<List<SpotOrderTransaction>> findByUser2(User user2);
     List<SpotOrderTransaction> findAll();
+
+
 }
