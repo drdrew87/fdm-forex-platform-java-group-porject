@@ -70,10 +70,7 @@ public class LoginRegisterController {
 		return "register";
 		}
 	}
-	@GetMapping("/home")
-	public String goToHomePage() {
-		return "home";
-	}
+
 	
 }
 
