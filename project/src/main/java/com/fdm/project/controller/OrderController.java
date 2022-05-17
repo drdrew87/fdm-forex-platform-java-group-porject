@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,15 +28,15 @@ public class OrderController {
 
 
 
-    @GetMapping("/forward")
-    public String goToForwardPage(Model model) {
+    @GetMapping("/{username}/forward")
+    public String goToForwardPage(@PathVariable String username, Model model) {
         List<ForwardOrderForex> forwardOrderForexList = forwardOrderForexService.findActiveForwardOrderForex();
         model.addAttribute("forwardorderlist", forwardOrderForexList);
         return "forward";
     }
 
-    @GetMapping("/orderboard")
-    public String goToOrderBoardPage(Model model) {
+    @GetMapping("/{username}/orderboard")
+    public String goToOrderBoardPage(@PathVariable String username, Model model) {
         List<ForwardOrderForex> forwardOrderForexList = forwardOrderForexService.findActiveForwardOrderForex();
         model.addAttribute("forwardorderlist", forwardOrderForexList);
         List<SpotOrderForex> activeLimitSpotOrderForexList = spotOrderForexService.findActiveLimitSpotOrderForex();
