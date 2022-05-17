@@ -58,7 +58,7 @@
 				<div>
 					<select name="buyCurrencyId" id="buyCurrencyId" required>
 						<option value="" selected disabled>Choose buy currency</option>
-						<option th:each="currency:${buyCurrencies}" th:value="${currency.currencyId}" th:text="${#strings.toUpperCase(currency.currencyCode)}">
+						<option th:each="currency:${buyCurrencies}" th:value="${currency.currencyId}" th:text="${#strings.toUpperCase(currency.currencyCode)} + ' - ' + ${currency.currencyName}">
 					</select>
 				</div>
 				<div>
@@ -74,7 +74,7 @@
 					<select name="sellCurrencyId" id="sellCurrencyId" required>
 						<option th:if="${emptyWalletList}" value="" selected disabled>No wallet available for user</option>
 						<option th:unless="${emptyWalletList}" value="" selected disabled>Choose sell currency</option>
-						<option th:each="wallet:${userWallets}" th:value="${wallet.currency.currencyId}" th:text="${#strings.toUpperCase(wallet.currency.currencyCode)}" >
+						<option th:each="wallet:${userWallets}" th:value="${wallet.currency.currencyId}" th:text="${#strings.toUpperCase(wallet.currency.currencyCode)} + ' - ' + ${wallet.currency.currencyName}" >
 					</select>
 				</div>
 				<div th:if="${orderType=='limit'}">
