@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+</head>
+<body>
+<br>
+<br>
+<br>
+Shows User Current Spot Orders
+<div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Buy Amount</th>
+            <th>Buy Currency</th>
+            <th>Sell Amount</th>
+            <th>Sell Currency</th>
+            <th>Expiry Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="spots: ${listCurrentSpotOrders}">
+            <td th:text="${(spots.buyAmount)}" />
+            <td th:text="${(spots.buyCurrency.currencyCode)}" />
+            <td th:text="${(spots.sellAmount)}" />
+            <td th:text="${(spots.sellCurrency.currencyCode)}" />
+            <td th:text="${(spots.expiryDate)}" />
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<br>
+<br>
+Shows User Current Forward Orders
+<div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Buy Amount</th>
+            <th>Buy Currency</th>
+            <th>Sell Amount</th>
+            <th>Sell Currency</th>
+            <th>Closing Date</th>
+            <th>Expiry Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="forwards: ${listCurrentForwardOrders}">
+            <td th:text="${(forwards.buyAmount)}" />
+            <td th:text="${(forwards.buyCurrency.currencyCode)}" />
+            <td th:text="${(forwards.sellAmount)}" />
+            <td th:text="${(forwards.sellCurrency.currencyCode)}" />
+            <td th:text="${(forwards.expiryDate)}" />
+            <td th:text="${(forwards.closingDate)}" />
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<br>
+<br>
+
+Shows User Spot Transactions
+<div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Transaction Time</th>
+            <th>Buy Amount</th>
+            <th>Buy Currency</th>
+            <th>Sell Amount</th>
+            <th>Sell Currency</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="spots: ${listSpotOrderTransactionHistory}">
+            <td th:text="${(spots.transactionTime)}" />
+            <td th:text="${(spots.user1BuyCurrencyAmount)}" />
+            <td th:text="${(spots.user1BuyCurrency.currencyCode)}" />
+            <td th:text="${(spots.user2BuyCurrencyAmount)}" />
+            <td th:text="${(spots.user2BuyCurrency.currencyCode)}" />
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<br>
+<br>
+
+Shows User Forward Transactions
+<div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Transaction time</th>
+            <th>Creator Received Amount</th>
+            <th>Transaction Currency</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="forwards: ${listForwardOrderTransaction}">
+            <td th:text="${(forwards.transactionTime)}" />
+            <td th:text="${(forwards.creatorReceivedAmount)}" />
+            <td th:text="${(forwards.transactionCurrency.currencyCode)}" />
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

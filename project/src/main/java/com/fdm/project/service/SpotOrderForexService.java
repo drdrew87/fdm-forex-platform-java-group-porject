@@ -128,4 +128,8 @@ public class SpotOrderForexService {
 
         return isValid;
     }
+
+	public List<SpotOrderForex> getCurrentSpotOrderByUser(User user){
+		return spotOrderForexRepo.getByUser(user);
+	}
 }

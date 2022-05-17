@@ -14,4 +14,6 @@ public interface ForwardOrderTransactionRepo extends JpaRepository<ForwardOrderT
     List<ForwardOrderTransaction> getByOrderCreator(User orderCreator);
     Optional<List<ForwardOrderTransaction>> findByOrderCreator(User orderCreator);
     List<ForwardOrderTransaction> findAll();
+
+
 }
