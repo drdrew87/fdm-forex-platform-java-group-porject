@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio</title>
+</head>
+
+<body>
+<br>
+<br>
+<br>
+Shows SpotOrder transactions
+<div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Transaction Time</th>
+            <th>Buy Amount</th>
+            <th>Buy Currency</th>
+            <th>Sell Amount</th>
+            <th>Sell Currency</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="spots: ${listSpotOrderTransactionHistory}">
+            <td th:text="${(spots.transactionTime)}" />
+            <td th:text="${(spots.user1BuyCurrencyAmount)}" />
+            <td th:text="${(spots.user1BuyCurrency.currencyCode)}" />
+            <td th:text="${(spots.user2BuyCurrencyAmount)}" />
+            <td th:text="${(spots.user2BuyCurrency.currencyCode)}" />
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<br>
+<br>
+Shows all the forward transactions
+<div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Transaction time</th>
+            <th>Creator Received Amount</th>
+            <th>Transaction Currency</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="forwards: ${listForwardOrderTransaction}">
+            <td th:text="${(forwards.transactionTime)}" />
+            <td th:text="${(forwards.creatorReceivedAmount)}" />
+            <td th:text="${(forwards.transactionCurrency.currencyCode)}" />
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+Show the wallets
+<div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>CURRENCY</th>
+            <th>AMOUNT</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="wallets: ${listWallets}">
+            <td th:text="${#strings.toUpperCase(wallets.currency.currencyCode)}" />
+            <td th:text="${#numbers.formatDecimal(wallets.walletBalance,1,'COMMA',2,'POINT')}" />
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <span th:text="'TOTAL VALUE: ' + ${#numbers.formatDecimal(totalValue,1,'COMMA',2,'POINT')} + ' ' + ${#strings.toUpperCase(preferredCurrency)}"></span>
+</div>
+</div>
+
+</body>
+</html>
