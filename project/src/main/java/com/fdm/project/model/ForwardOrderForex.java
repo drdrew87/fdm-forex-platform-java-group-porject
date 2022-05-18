@@ -40,9 +40,6 @@ public class ForwardOrderForex {
     @Column(name = "sell_amount")
     private double sellAmount;
     
-    @Column(name = "expiry_date")
-    private Date expiryDate;
-    
     @Column(name = "closing_date")
     private Date closingDate;
     
@@ -91,14 +88,6 @@ public class ForwardOrderForex {
 
     public void setSellAmount(double sellAmount) {
         this.sellAmount = sellAmount;
-    }
-
-    public Date getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(Date expiryDate) {
-        this.expiryDate = expiryDate;
     }
 
     public Date getClosingDate() {
