@@ -12,7 +12,9 @@
 </header>
 
 <body>
-	<div class="container">
+<div class="container">
+	<div class="row">
+		<div class="col-4">
 		<h2>Create New Forward Order</h2>
 		<div th:if="${differentCurrencyRequired}">Buy currency and sell currency cannot be the same</div>
 		<div th:if="${insufficientFundNew}">Insufficient fund in wallet</div>
@@ -22,7 +24,7 @@
 				<label>Buy Currency</label>
 			</div>
 			<div>
-				<select name="buyCurrencyId" id="buyCurrencyId" required>
+				<select name="buyCurrencyId" id="buyCurrencyId" class="order-input-field" required>
 					<option th:if="${emptyWalletList}" value="" selected disabled>No wallet available for user</option>
 					<option th:unless="${emptyWalletList}" value="" selected disabled>Choose sell currency</option>
 					<option th:each="wallet:${userWallets}" th:value="${wallet.currency.currencyId}" th:text="${#strings.toUpperCase(wallet.currency.currencyCode)} + ' - ' + ${wallet.currency.currencyName}" >
@@ -32,14 +34,14 @@
 				<label>Buy Amount</label>
 			</div>
 			<div>
-				<input th:field="*{buyAmount}">
+				<input th:field="*{buyAmount}" class="order-input-field">
 			</div>
 			<div>
 				<label>Sell Currency</label>
 			</div>
 			<div>
 
-				<select name="sellCurrencyId" id="sellCurrencyId" required>
+				<select name="sellCurrencyId" id="sellCurrencyId" class="order-input-field" required>
 					<option value="" selected disabled>Choose buy currency</option>
 					<option th:each="currency:${buyCurrencies}" th:value="${currency.currencyId}" th:text="${#strings.toUpperCase(currency.currencyCode)} + ' - ' + ${currency.currencyName}">
 				</select>
@@ -48,21 +50,22 @@
 				<label>Sell Amount</label>
 			</div>
 			<div>
-				<input th:field="*{sellAmount}">
+				<input th:field="*{sellAmount}" class="order-input-field">
 			</div>
 			<div>
 				<label>Closing Date</label>
 			</div>
 			<div>
-				<input th:field="*{closingDate}" type="date">
+				<input th:field="*{closingDate}" type="date" class="order-input-field">
 			</div>
+			<br>
 			<div>
-				<button type="submit">Submit new forward order</button>
+				<button type="submit" class="order-submit-btn">Submit New Forward Order</button>
 			</div>
 		</form>
 	</div>
 	
-	<div class="container">
+	<div class="col-8">
 		<h2>Forward Orders</h2>
 		<div th:if="${emptyForwardOrderList}">
 			<p>No forward order listed</p>
@@ -95,5 +98,7 @@
 		</div>
 		<div th:if="${insufficientFund}">Insufficient fund in wallet</div>
 	</div>
+	</div>
+</div>
 </body>
 </html>
