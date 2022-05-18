@@ -16,7 +16,7 @@
 			<li><a th:href="@{/{username}/myProfile(username=${username})}">My Profile</a></li>
 			<li>
 				<form th:action="@{/logout}" th:object="${user}" method="post">
-					<button type="submit" class="landing-nav-btn" onclick="location.href='landing'">Logout</button>
+					<button type="submit" class="logout-btn" onclick="location.href='landing'">Logout</button>
 				</form>
 			</li>
 		</ul>
