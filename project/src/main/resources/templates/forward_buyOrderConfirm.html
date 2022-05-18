@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Stanley | Forward</title>
+</head>
+<body>
+	<div>
+		<table>
+			<tr>
+				<th>ORDER</th>
+				<th>BUY</th>
+				<th>AMOUNT</th>
+				<th>SELL</th>
+				<th>AMOUNT</th>
+				<th>CLOSING</th>
+				<th></th>
+				<th></th>
+			</tr>
+			
+			<tr>
+				<td th:text="${buyOrder.orderId}"></td>
+				<td th:text="${buyOrder.buyCurrency.currencyCode}"></td>
+				<td th:text="${buyOrder.buyAmount}"></td>
+				<td th:text="${buyOrder.sellCurrency.currencyCode}"></td>
+				<td th:text="${buyOrder.sellAmount}"></td>
+				<td th:text="${buyOrder.closingDate}"></td>
+				<td>
+					<form th:action="@{/{username}/forward/confirmBuyOrder(username=${username})}" method="post">
+						<button name="buyOrderId" id="buyOrderId" type="submit" th:value="${buyOrder.orderId}">Confirm buy order</button>
+					</form>
+				</td>
+				<td>
+					<form th:action="@{/{username}/forward(username=${username})}" method="get">
+						<button type="submit">Cancel</button>
+					</form>
+				</td>
+			</tr>
+			
+		</table>
+	</div>
+</body>
+</html>

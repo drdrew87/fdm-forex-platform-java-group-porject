@@ -26,15 +26,6 @@ public class OrderController {
     SpotOrderForexService spotOrderForexService;
 
 
-
-
-    @GetMapping("/{username}/forward")
-    public String goToForwardPage(@PathVariable String username, Model model) {
-        List<ForwardOrderForex> forwardOrderForexList = forwardOrderForexService.findActiveForwardOrderForex();
-        model.addAttribute("forwardorderlist", forwardOrderForexList);
-        return "forward";
-    }
-
     @GetMapping("/{username}/orderboard")
     public String goToOrderBoardPage(@PathVariable String username, Model model) {
         List<ForwardOrderForex> forwardOrderForexList = forwardOrderForexService.findActiveForwardOrderForex();
