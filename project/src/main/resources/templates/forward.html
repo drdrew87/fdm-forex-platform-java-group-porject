@@ -12,8 +12,8 @@
 </header>
 
 <body>
-	<div>
-		<h3>Create new forward order</h3>
+	<div class="container">
+		<h2>Create New Forward Order</h2>
 		<div th:if="${differentCurrencyRequired}">Buy currency and sell currency cannot be the same</div>
 		<div th:if="${insufficientFundNew}">Insufficient fund in wallet</div>
 		<div th:if="${zeroBuyAmount}">Buy amount or sell amount must be more than 0</div>
@@ -62,14 +62,13 @@
 		</form>
 	</div>
 	
-	<div>
-		
-		<h3>Forward Orders</h3>
+	<div class="container">
+		<h2>Forward Orders</h2>
 		<div th:if="${emptyForwardOrderList}">
 			<p>No forward order listed</p>
 		</div>
 		<div th:unless="${emptyForwardOrderList}">
-		<table>
+		<table class="table table-bordered table-striped">
 			<tr>
 				<th>ORDER</th>
 				<th>BUY</th>

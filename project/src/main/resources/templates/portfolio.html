@@ -15,7 +15,7 @@
 <div class="container">
 	<h2>My Spot Order Transactions</h2>
 	<div>
-	    <table class="table  table-striped">
+	    <table class="table table-bordered table-striped">
 	        <thead>
 	        <tr>
 	            <th>Transaction Time</th>
@@ -82,7 +82,9 @@
 	</div>
 	<br>
 	<div>
-	    <span th:text="'TOTAL VALUE: ' + ${#numbers.formatDecimal(totalValue,1,'COMMA',2,'POINT')} + ' ' + ${#strings.toUpperCase(preferredCurrency)}"></span>
+	    <span class="fw-bold" th:text="'TOTAL VALUE '"></span><br>
+	    <span class="grey" th:text="${#strings.toUpperCase(preferredCurrency)}"></span>
+	    <span class="totalvaluenumber fw-bold .align-middle" th:text="${#numbers.formatDecimal(totalValue,1,'COMMA',2,'POINT')}"></span>
 	</div>
 
 </div>

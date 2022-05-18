@@ -12,7 +12,7 @@
 </header>
 
 <body>
-	<div>
+	<div class="container">
 		<div>
 			<table>
 				<tr>
@@ -108,13 +108,13 @@
 	
 	<div>
 		
-		<div>
-			<h3>Limit Orders</h3>
+		<div class="container">
+			<h2>Limit Orders</h2>
 			<div th:if="${emptyLimitOrderList}">
 				<p>No limit order listed</p>
 			</div>
 			<div th:unless="${emptyLimitOrderList}">
-				<table>
+				<table class="table table-bordered table-striped">
 					<tr>
 						<th>ORDER</th>
 						<th>BUY</th>
@@ -135,13 +135,13 @@
 			</div>
 		</div>
 		
-		<div>
-			<h3>Market Orders</h3>
+		<div class="container">
+			<h2>Market Orders</h2>
 			<div th:if="${emptyMarketOrderList}">
 				<p>No market order listed</p>
 			</div>
 			<div th:unless="${emptyMarketOrderList}">
-				<table>
+				<table class="table table-bordered table-striped">
 					<tr>
 						<th>ORDER</th>
 						<th>BUY</th>
