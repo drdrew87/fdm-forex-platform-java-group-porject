@@ -70,6 +70,12 @@ public class LoginRegisterController {
 		return "register";
 		}
 	}
+	
+	@PostMapping("/logout")
+	public String logUserOut(HttpServletRequest req) {
+		req.getSession().removeAttribute("active_user");
+		return "landing";
+	}
 
 	
 }
