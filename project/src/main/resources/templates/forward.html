@@ -16,9 +16,9 @@
 	<div class="row">
 		<div class="col-4">
 		<h2>Create New Forward Order</h2>
-		<div th:if="${differentCurrencyRequired}">Buy currency and sell currency cannot be the same</div>
-		<div th:if="${insufficientFundNew}">Insufficient fund in wallet</div>
-		<div th:if="${zeroBuyAmount}">Buy amount or sell amount must be more than 0</div>
+		<div class="text-danger fw-bold" th:if="${differentCurrencyRequired}">Buy currency and sell currency cannot be the same</div>
+		<div class="text-danger fw-bold" th:if="${insufficientFundNew}">Insufficient fund in wallet</div>
+		<div class="text-danger fw-bold" th:if="${zeroBuyAmount}">Buy amount or sell amount must be more than 0</div>
 		<form th:action="@{/{username}/forward/submitOrder(username=${username})}" th:object="${newForwardOrder}" method="post">
 			<div>
 				<label>Buy Currency</label>

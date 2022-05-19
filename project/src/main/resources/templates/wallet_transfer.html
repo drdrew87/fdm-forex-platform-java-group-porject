@@ -12,7 +12,9 @@
 </header>
 
 <body>
+<br>
 <div class="container">
+<div class="row justify-content-center">
 	<div class="col-4">
 		<div>
 			<h2>Transfer Money to Wallet</h2>
@@ -56,8 +58,8 @@
 			
 			<div th:unless="${isWalletSelected}">
 				<form th:action="@{/{username}/wallet/transfer/walletSelection(username=${username})}" method="post">
-					<label for="selectedWalletId">Choose Wallet</label>
-					<select onchange="this.form.submit()" id="selectedWalletId" name="selectedWalletId">
+					<label for="selectedWallet">Choose Wallet</label>
+					<select onchange="this.form.submit()" id="selectedWallet" name="selectedWalletId">
 						<option value="" selected disabled>Select wallet</option>
 						<option th:each="wallet:${walletList}" th:value="${wallet.walletId}" th:text="${#strings.toUpperCase(wallet.currency.currencyCode)} + ' wallet'"></option>
 					</select>
@@ -69,11 +71,13 @@
 			<p>Exchange rate <span th:text="${#strings.toUpperCase(selectedBankCurrency)} + ' to ' + ${#strings.toUpperCase(selectedWalletCurrency)} + ': ' + ${#numbers.formatDecimal(exchangeRate,1,4,'POINT')}"></span></p>
 			<form th:action="@{/{username}/wallet/transfer/confirmTransfer(username=${username})}" method="post">
 				<label for="transferAmount">Amount to receive</label><br>
-				<input id="transferAmount" name="transferAmount" placeholder="Enter amount to receive" class="order-input-field" required/><br>
+				<input id="transferAmount" name="transferAmount" type="number" placeholder="Enter amount to receive" class="order-input-field" required/><br>
+				<br>
 				<button class="order-submit-btn">Transfer</button>
 			</form>
 		</div>
 	</div>
+</div>
 </div>
 </body>
 </html>

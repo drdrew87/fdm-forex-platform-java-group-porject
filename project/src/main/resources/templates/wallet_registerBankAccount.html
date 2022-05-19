@@ -13,6 +13,7 @@
 
 <body>
 <div class="container">
+<div class="row justify-content-center">
 	<div class="col-4">
 		<h2>Register Bank Account</h2>
 		<br>
@@ -39,5 +40,29 @@
 		</form>
 	</div>
 </div>
+</div>
+
+<script>
+	var inputs = document.querySelectorAll("input[list]");
+	for (var i = 0; i < inputs.length; i++){
+		inputs[i].addEventListener("change", function () {
+			console.log("changed");
+			var optionFound = false,
+		      datalist = this.list;
+		
+		for (var j = 0; j < datalist.options.length; j++) {
+			     if (this.value == datalist.options[j].value) {
+			       optionFound = true;
+			       break;
+			     }
+			 }
+		if (optionFound) {
+		      this.setCustomValidity("");
+		    } else {
+		      this.setCustomValidity("Please select a valid value.");
+		    }
+		  });
+	}
+</script>
 </body>
 </html>
