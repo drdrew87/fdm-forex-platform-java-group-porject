@@ -9,17 +9,17 @@
 <header>
 	<nav>
 		<ul>
-			<li><a href="/Stanley/">STANLEY</a></li>
+			<li><a href="/Stanley/" id="landing-stanley">STANLEY</a></li>
 			<li><button type="button" class="landing-nav-btn" onclick="location.href='register'">Sign up</button></li>	
 		</ul>
 	</nav>
 </header>
 
 <body>
-	
+<div class="container">
 	<div class="landing-box">
 		<div class="input-group">
-			<p><strong>Welcome back!</strong></p>
+			<h2>Welcome back!</h2>
 			<br><br>
 			<form th:action="@{/login}" method="post" id="login">
 				<input type="text" name="username" placeholder="Username" class="input-field" required>
@@ -29,6 +29,6 @@
 			</form> 
 		</div>
 	</div>	
-
+</div>
 </body>
 </html>
