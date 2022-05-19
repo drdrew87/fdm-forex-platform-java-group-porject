@@ -38,6 +38,10 @@ public class ForwardOrderForexService {
     public List<ForwardOrderForex> findActiveForwardOrderForex() {
         return forwardOrderForexRepo.findByIsActive(true).get();
     }
+    
+    public List<ForwardOrderForex> getForwardOrderForexByUser(User user){
+        return forwardOrderForexRepo.getByUser(user);
+    }
 
     public void addNewForwardOrder(ForwardOrderForex newForwardOrder) {
 	forwardOrderForexRepo.save(newForwardOrder);

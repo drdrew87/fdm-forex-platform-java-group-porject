@@ -10,12 +10,14 @@
 <header>
 	<nav>
 		<ul>
-			<li><a href="/Stanley/">STANLEY</a></li>
+			<li><a href="/Stanley/" id="landing-stanley">STANLEY</a></li>
 			<li><button type="button" class="landing-nav-btn" onclick="location.href='login'">Login</button></li>	
 		</ul>
 	</nav>
 </header>
 <body>
+<!-- 	<div id="alertRegisterSuccess"></div> -->
+	
 	<div class="landing-box">
 		<div class="input-group">
 			<p><strong>Register New Account</strong></p>
@@ -24,9 +26,9 @@
 				<input type="text" th:field="*{username}" placeholder="Username" class="input-field" required>
 				<input type="password" name="password" th:field="*{password}" placeholder="Password" class="input-field" id="register_password" required>
 				<input type="password" name="confirmpassword" placeholder="Confirm Password" class="input-field" id="register_confirmpassword" required>
-				<input  list="currencies"  name="preferredcurrency" class="input-field" placeholder="Please select your preferred currency" required>	
+				<input list="currencies"  name="preferredcurrency" class="input-field" placeholder="Please select your preferred currency" required>	
 					<datalist id="currencies">
-							<option th:each="currency:${currencies}" th:value="${currency.currencyCode}"  th:label="${currency.currencyName}"></option>
+						<option th:each="currency:${currencies}" th:value="${#strings.toUpperCase(currency.currencyCode)}"  th:label="${currency.currencyName}"></option>
 					</datalist>
 				<button type = "submit" class="submit-btn" id="register_submit" onclick="checkPasswordMatch(event)">REGISTER</button>
 				<br>
@@ -45,13 +47,32 @@
 			status.innerHTML = "Passwords do not match";
 			event.preventDefault();
 			return false;
-			
-			
 		} else {
 			status.innerHTML = "";
 			return true;
 		}
 	}
+/* 	const alertsuccess = document.getElementById('alertRegisterSuccess')
+
+	const alert = (message, type) => {
+	  const wrapper = document.createElement('div')
+	  wrapper.innerHTML = [
+	    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+	    `   <div>${message}</div>`,
+	    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+	    '</div>'
+	  ].join('')
+
+	  alertsuccess.append(wrapper)
+	}
+
+	const alertTrigger = document.getElementById('register_submit')
+	if (alertTrigger) {
+	  alertTrigger.addEventListener('click', () => {
+	    alert('You have successfully registered an account!', 'success')
+	  })
+	} */
+	
 	</script>
 
 </body>

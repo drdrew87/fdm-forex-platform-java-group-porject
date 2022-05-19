@@ -2,85 +2,94 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Portfolio</title>
+    <title>Stanley | Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+	<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 </head>
 
+<header th:insert="navbar :: navbar">
+</header>
+
 <body>
-<br>
-<br>
-<br>
-Shows SpotOrder transactions
-<div>
-    <table class="table table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>Transaction Time</th>
-            <th>Buy Amount</th>
-            <th>Buy Currency</th>
-            <th>Sell Amount</th>
-            <th>Sell Currency</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="spots: ${listSpotOrderTransactionHistory}">
-            <td th:text="${(spots.transactionTime)}" />
-            <td th:text="${(spots.user1BuyCurrencyAmount)}" />
-            <td th:text="${(spots.user1BuyCurrency.currencyCode)}" />
-            <td th:text="${(spots.user2BuyCurrencyAmount)}" />
-            <td th:text="${(spots.user2BuyCurrency.currencyCode)}" />
-        </tr>
-        </tbody>
-    </table>
+<div class="container">
+	<div class="row">
+		<div class="col-4">
+			<h2>My Current Holdings</h2>
+		    <table class="table table-bordered table-striped">
+		        <thead>
+		        <tr>
+		            <th class="text-center">CURRENCY</th>
+		            <th class="text-center">AMOUNT</th>
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr th:each="wallets: ${listWallets}">
+		            <td class="text-center" th:text="${#strings.toUpperCase(wallets.currency.currencyCode)}" />
+		            <td th:text="${#numbers.formatDecimal(wallets.walletBalance,1,'COMMA',2,'POINT')}" class="text-end"/>
+		        </tr>
+		        </tbody>
+		    </table>
+		    <br>
+			<div>
+			    <span class="fw-bold" th:text="'TOTAL VALUE '"></span><br>
+			    <span class="grey" th:text="${#strings.toUpperCase(preferredCurrency)}"></span>
+			    <span class="totalvaluenumber fw-bold .align-middle" th:text="${#numbers.formatDecimal(totalValue,1,'COMMA',2,'POINT')}"></span>
+			</div>
+		</div>
+		
+		<div class="col-8">
+			<h2>My Spot Order Transactions</h2>
+		    <table class="table table-bordered table-striped">
+		        <thead>
+		        <tr>
+		            <th>Transaction Time</th>
+		            <th>Buy Amount</th>
+		            <th>Buy Currency</th>
+		            <th>Sell Amount</th>
+		            <th>Sell Currency</th>
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr th:each="spots: ${listSpotOrderTransactionHistory}">
+		            <td th:text="${(spots.transactionTime)}" />
+		            <td th:text="${(spots.user1BuyCurrencyAmount)}" />
+		            <td th:text="${#strings.toUpperCase(spots.user1BuyCurrency.currencyCode)}" />
+		            <td th:text="${(spots.user2BuyCurrencyAmount)}" />
+		            <td th:text="${#strings.toUpperCase(spots.user2BuyCurrency.currencyCode)}" />
+		        </tr>
+		        </tbody>
+		    </table>
+		
+			<br>
+			<br>
+			<br>
+			<div>
+			<h2>My Forward Transactions</h2>
+			    <table class="table table-bordered table-striped">
+			        <thead>
+			        <tr>
+			            <th>Transaction time</th>
+			            <th>Creator Received Amount</th>
+			            <th>Transaction Currency</th>
+			        </tr>
+			        </thead>
+			        <tbody>
+			        <tr th:each="forwards: ${listForwardOrderTransaction}">
+			            <td th:text="${(forwards.transactionTime)}" />
+			            <td th:text="${(forwards.creatorReceivedAmount)}" />
+			            <td th:text="${#strings.toUpperCase(forwards.transactionCurrency.currencyCode)}" />
+			        </tr>
+			        </tbody>
+			    </table>
+			</div>
+			<br>
+			<br>
+			<br>
+			<br>
+		</div>
+		
+	</div>
 </div>
-<br>
-<br>
-<br>
-Shows all the forward transactions
-<div>
-    <table class="table table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>Transaction time</th>
-            <th>Creator Received Amount</th>
-            <th>Transaction Currency</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="forwards: ${listForwardOrderTransaction}">
-            <td th:text="${(forwards.transactionTime)}" />
-            <td th:text="${(forwards.creatorReceivedAmount)}" />
-            <td th:text="${(forwards.transactionCurrency.currencyCode)}" />
-        </tr>
-        </tbody>
-    </table>
-</div>
-<br>
-<br>
-<br>
-<br>
-
-Show the wallets
-<div>
-    <table class="table table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>CURRENCY</th>
-            <th>AMOUNT</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="wallets: ${listWallets}">
-            <td th:text="${#strings.toUpperCase(wallets.currency.currencyCode)}" />
-            <td th:text="${#numbers.formatDecimal(wallets.walletBalance,1,'COMMA',2,'POINT')}" />
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-<div>
-    <span th:text="'TOTAL VALUE: ' + ${#numbers.formatDecimal(totalValue,1,'COMMA',2,'POINT')} + ' ' + ${#strings.toUpperCase(preferredCurrency)}"></span>
-</div>
-</div>
-
 </body>
 </html>

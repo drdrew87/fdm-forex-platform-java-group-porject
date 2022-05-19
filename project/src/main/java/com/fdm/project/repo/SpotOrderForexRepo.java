@@ -1,18 +1,22 @@
 package com.fdm.project.repo;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import org.springframework.stereotype.Repository;
+
+
 import com.fdm.project.model.Currency;
 import com.fdm.project.model.SpotOrderForex;
 import com.fdm.project.model.User;
 
-public interface SpotOrderForexRepo extends JpaRepository<SpotOrderForex, Integer> {
+@Repository
+public interface SpotOrderForexRepo extends JpaRepository<SpotOrderForex, Integer>{
+
     List<SpotOrderForex> getByUser(User user);
 
     Optional<List<SpotOrderForex>> findByUser(User user);
