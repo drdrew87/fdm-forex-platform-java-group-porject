@@ -71,12 +71,6 @@ public class LoginRegisterController {
 		}
 	}
 	
-	@PostMapping("/logout")
-	public String logUserOut(HttpServletRequest req) {
-		req.getSession().removeAttribute("active_user");
-		return "landing";
-	}
-
 	
 }
 
