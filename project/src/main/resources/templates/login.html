@@ -9,7 +9,7 @@
 <header>
 	<nav>
 		<ul>
-			<li><a href="/Stanley/" id="landing-stanley">STANLEY</a></li>
+			<li><a th:href="@{/}" id="landing-stanley">STANLEY</a></li>
 			<li><button type="button" class="landing-nav-btn" onclick="location.href='register'">Sign up</button></li>	
 		</ul>
 	</nav>
@@ -20,6 +20,7 @@
 	<div class="landing-box">
 		<div class="input-group">
 			<h2>Welcome back!</h2>
+			<div th:if="${successfulRegistration}" id="alertRegisterSuccess">Registration successful</div>
 			<br><br>
 			<form th:action="@{/login}" method="post" id="login">
 				<input type="text" name="username" placeholder="Username" class="input-field" required>
@@ -30,5 +31,44 @@
 		</div>
 	</div>	
 </div>
+
+
+<script>
+	function checkPasswordMatch(event){
+		var password = document.getElementById('register_password').value;
+		var confirmpassword = document.getElementById('register_confirmpassword').value;
+		var status = document.getElementById('password_status');
+		
+		if (password != confirmpassword) {
+			status.innerHTML = "Passwords do not match";
+			event.preventDefault();
+			return false;
+		} else {
+			status.innerHTML = "";
+			return true;
+		}
+	}
+	const alertsuccess = document.getElementById('alertRegisterSuccess')
+
+	const alert = (message, type) => {
+	  const wrapper = document.createElement('div')
+	  wrapper.innerHTML = [
+	    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+	    `   <div>${message}</div>`,
+	    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+	    '</div>'
+	  ].join('')
+
+	  alertsuccess.append(wrapper)
+	}
+
+	const alertTrigger = document.getElementById('register_submit')
+	if (alertTrigger) {
+	  alertTrigger.addEventListener('click', () => {
+	    alert('You have successfully registered an account!', 'success')
+	  })
+	} 
+	
+	</script>
 </body>
 </html>

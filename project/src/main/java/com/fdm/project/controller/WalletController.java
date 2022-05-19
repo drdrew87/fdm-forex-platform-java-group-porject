@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class WalletController {
     @Autowired
@@ -28,8 +31,12 @@ public class WalletController {
     private BankService bankService;
 
     @GetMapping("/{username}/wallet")
-    public String gotoWallet(Model model, @PathVariable(name = "username") String username) {
-        User user = userService.getUserByUsername(username);
+    public String gotoWallet(Model model, @PathVariable(name = "username") String username, HttpServletRequest request) {
+	HttpSession session = request.getSession();
+	if (!userService.verifyLogin(username, session)) {
+	    return "redirect:/login";
+	}
+	User user = userService.getUserByUsername(username);
         String preferredCurrency = (user.getPreferredCurrency()!=null) ? user.getPreferredCurrency().getCurrencyCode() : "USD";
         model.addAttribute("preferredCurrency", preferredCurrency);
         
