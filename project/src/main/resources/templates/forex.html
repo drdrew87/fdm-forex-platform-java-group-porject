@@ -132,9 +132,9 @@
 					<tr th:each="order:${limitOrderList}">
 						<td><span th:text="${order.orderId}"></span></td>
 						<td><span th:text="${#strings.toUpperCase(order.buyCurrency.currencyCode)}"></span></td>
-						<td><span th:text="${order.buyAmount}"></span></td>
+						<td class="text-end"><span th:text="${#numbers.formatDecimal(order.buyAmount,1,'COMMA',2,'POINT')}"></span></td>
 						<td><span th:text="${#strings.toUpperCase(order.sellCurrency.currencyCode)}"></span></td>
-						<td><span th:text="${order.sellAmount}"></span></td>
+						<td class="text-end"><span th:text="${#numbers.formatDecimal(order.sellAmount,1,'COMMA',2,'POINT')}"></span></td>
 						<td><span th:text="${order.expiryDate}"></span></td>
 					</tr>
 				</table>
@@ -160,7 +160,7 @@
 					<tr th:each="order:${marketOrderList}">
 						<td><span th:text="${order.orderId}"></span></td>
 						<td><span th:text="${#strings.toUpperCase(order.buyCurrency.currencyCode)}"></span></td>
-						<td><span th:text="${order.buyAmount}"></span></td>
+						<td class="text-end"><span th:text="${#numbers.formatDecimal(order.buyAmount,1,'COMMA',2,'POINT')}"></span></td>
 						<td><span th:text="${#strings.toUpperCase(order.sellCurrency.currencyCode)}"></span></td>
 						<td><span th:text="${order.expiryDate}"></span></td>
 					</tr>

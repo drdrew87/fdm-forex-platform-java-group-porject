@@ -53,10 +53,10 @@
 		        <tbody>
 		        <tr th:each="spots: ${listSpotOrderTransactionHistory}">
 		            <td th:text="${(spots.transactionTime)}" />
-		            <td th:text="${(spots.user1BuyCurrencyAmount)}" />
-		            <td th:text="${#strings.toUpperCase(spots.user1BuyCurrency.currencyCode)}" />
-		            <td th:text="${(spots.user2BuyCurrencyAmount)}" />
-		            <td th:text="${#strings.toUpperCase(spots.user2BuyCurrency.currencyCode)}" />
+		            <td th:text="${#numbers.formatDecimal(spots.user1BuyCurrencyAmount,1,'COMMA',2,'POINT')}" class="text-end" />
+		            <td th:text="${#strings.toUpperCase(spots.user1BuyCurrency.currencyCode)}" class="text-center"/>
+		            <td th:text="${#numbers.formatDecimal(spots.user2BuyCurrencyAmount,1,'COMMA',2,'POINT')}" class="text-end"/>
+		            <td th:text="${#strings.toUpperCase(spots.user2BuyCurrency.currencyCode)}" class="text-center"/>
 		        </tr>
 		        </tbody>
 		    </table>
@@ -77,7 +77,7 @@
 			        <tbody>
 			        <tr th:each="forwards: ${listForwardOrderTransaction}">
 			            <td th:text="${(forwards.transactionTime)}" />
-			            <td th:text="${(forwards.creatorReceivedAmount)}" />
+			            <td th:text="${#numbers.formatDecimal(forwards.creatorReceivedAmount,1,'COMMA',2,'POINT')}" />
 			            <td th:text="${#strings.toUpperCase(forwards.transactionCurrency.currencyCode)}" />
 			        </tr>
 			        </tbody>
