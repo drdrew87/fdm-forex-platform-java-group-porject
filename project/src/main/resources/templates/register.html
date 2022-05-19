@@ -16,6 +16,8 @@
 	</nav>
 </header>
 <body>
+<!-- 	<div id="alertRegisterSuccess"></div> -->
+	
 	<div class="landing-box">
 		<div class="input-group">
 			<p><strong>Register New Account</strong></p>
@@ -45,13 +47,32 @@
 			status.innerHTML = "Passwords do not match";
 			event.preventDefault();
 			return false;
-			
-			
 		} else {
 			status.innerHTML = "";
 			return true;
 		}
 	}
+/* 	const alertsuccess = document.getElementById('alertRegisterSuccess')
+
+	const alert = (message, type) => {
+	  const wrapper = document.createElement('div')
+	  wrapper.innerHTML = [
+	    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+	    `   <div>${message}</div>`,
+	    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+	    '</div>'
+	  ].join('')
+
+	  alertsuccess.append(wrapper)
+	}
+
+	const alertTrigger = document.getElementById('register_submit')
+	if (alertTrigger) {
+	  alertTrigger.addEventListener('click', () => {
+	    alert('You have successfully registered an account!', 'success')
+	  })
+	} */
+	
 	</script>
 
 </body>
