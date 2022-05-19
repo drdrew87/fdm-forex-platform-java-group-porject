@@ -21,4 +21,12 @@ public class ForwardTransactionService {
     public List<ForwardOrderTransaction> getForwardOrderTransactionByUser(User user) {
         return forwardOrderTransactionRepo.getByOrderCreator(user);
     }
+
+    public List<ForwardOrderTransaction> getPendingTransactions(User user) {
+	return forwardOrderTransactionRepo.getOpenPendingTransactions(user);
+    }
+
+    public List<ForwardOrderTransaction> getClosedBoughtTransactions(User user) {
+	return forwardOrderTransactionRepo.getClosedBoughtTransactions(user);
+    }
 }

@@ -102,17 +102,17 @@ public class SpotOrderForexService {
             redirectAttrs.addFlashAttribute("zeroBuyAmount", true);
             return isValid;
         }
-
-        if (newOrder.getSellAmount() > 0) {
-            double currentRate = newOrder.getSellAmount() / newOrder.getBuyAmount();
-            double marketRate = newOrder.getSellCurrency().getCurrencyRate() / newOrder.getBuyCurrency().getCurrencyRate();
-            // if input exchange rate exceeds market exchange rate by 25%
-            if (Math.abs((marketRate - currentRate) * 100 / marketRate) > 25) {
-                isValid = false;
-                redirectAttrs.addFlashAttribute("invalidExcahngeRate", true);
-                return isValid;
-            }
-        }
+//
+//        if (newOrder.getSellAmount() > 0) {
+//            double currentRate = newOrder.getSellAmount() / newOrder.getBuyAmount();
+//            double marketRate = newOrder.getSellCurrency().getCurrencyRate() / newOrder.getBuyCurrency().getCurrencyRate();
+//            // if input exchange rate exceeds market exchange rate by 25%
+//            if (Math.abs((marketRate - currentRate) * 100 / marketRate) > 25) {
+//                isValid = false;
+//                redirectAttrs.addFlashAttribute("invalidExcahngeRate", true);
+//                return isValid;
+//            }
+//        }
 
         if (isLimitOrder) {
             isValid = (sellWallet.getWalletBalance() >= newOrder.getSellAmount());

@@ -63,6 +63,18 @@ public class ProfileController {
         if (listForwardOrderTransaction.size() == 0) {
             model.addAttribute("noForwardOrderTransaction", true);
         }
+        
+        List<ForwardOrderTransaction> listPendingTransaction = forwardTransactionService.getPendingTransactions(user);
+        model.addAttribute("listPendingTransaction",listPendingTransaction);
+        if (listForwardOrderTransaction.size() == 0) {
+            model.addAttribute("noPendingTransaction", true);
+        }
+        
+        List<ForwardOrderTransaction> listClosedBoughtTransactions = forwardTransactionService.getClosedBoughtTransactions(user);
+        model.addAttribute("listClosedBoughtTransactions",listClosedBoughtTransactions);
+        if (listForwardOrderTransaction.size() == 0) {
+            model.addAttribute("noPendingTransaction", true);
+        }
 
         return "myprofile";
     }
