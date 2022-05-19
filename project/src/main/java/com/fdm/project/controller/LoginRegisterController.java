@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fdm.project.model.User;
 import com.fdm.project.service.CurrencyService;
@@ -58,14 +59,15 @@ public class LoginRegisterController {
 	}
 	
 	@PostMapping("/register")
-	public String registerNewUser(@ModelAttribute User user, @RequestParam String preferredcurrency) {
+	public String registerNewUser(@ModelAttribute User user, @RequestParam String preferredcurrency, RedirectAttributes redirectAttr) {
 		
 		boolean isUniqueUsername = userService.verifyUsernameIsUnique(user.getUsername());
 		
 		if (isUniqueUsername) {
 			user.setPreferredCurrency(currencyService.getByCurrencyCode(preferredcurrency));
 			userService.registerUser(user);
-			return "login";
+			redirectAttr.addFlashAttribute("successfulRegistration", true);
+			return "redirect:/login";
 		} else {
 		return "register";
 		}
