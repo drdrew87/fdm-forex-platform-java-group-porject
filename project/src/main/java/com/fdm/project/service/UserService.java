@@ -1,5 +1,8 @@
 package com.fdm.project.service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +43,10 @@ public class UserService {
 	
 	public User getUserByUsername(String username) {
 	    return userRepo.getByUsername(username);
+	}
+
+	public boolean verifyLogin(String username, HttpSession session) {
+	    return username.equals((String) session.getAttribute("active_user"));
 	}
 
 }
