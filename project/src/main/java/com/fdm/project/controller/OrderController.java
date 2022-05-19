@@ -4,6 +4,8 @@ import com.fdm.project.model.ForwardOrderForex;
 import com.fdm.project.model.SpotOrderForex;
 import com.fdm.project.service.ForwardOrderForexService;
 import com.fdm.project.service.SpotOrderForexService;
+import com.fdm.project.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,8 @@ import java.util.List;
 @Controller
 public class OrderController {
     @Autowired
+    private UserService userService;
+    @Autowired
     ForwardOrderForexService forwardOrderForexService;
 
     @Autowired
@@ -27,8 +31,13 @@ public class OrderController {
 
 
     @GetMapping("/{username}/orderboard")
-    public String goToOrderBoardPage(@PathVariable String username, Model model) {
-        List<ForwardOrderForex> forwardOrderForexList = forwardOrderForexService.findActiveForwardOrderForex();
+    public String goToOrderBoardPage(@PathVariable String username, Model model, HttpServletRequest request) {
+	HttpSession session = request.getSession();
+	if (!userService.verifyLogin(username, session)) {
+	    return "redirect:/login";
+	}
+	
+	List<ForwardOrderForex> forwardOrderForexList = forwardOrderForexService.findActiveForwardOrderForex();
         model.addAttribute("forwardorderlist", forwardOrderForexList);
         List<SpotOrderForex> activeLimitSpotOrderForexList = spotOrderForexService.findActiveLimitSpotOrderForex();
         model.addAttribute("limitspotorderforexlist", activeLimitSpotOrderForexList);

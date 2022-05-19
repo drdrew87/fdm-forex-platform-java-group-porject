@@ -41,6 +41,9 @@ public class ForwardController {
     @GetMapping("/{username}/forward")
     public String accessForwardPage(@PathVariable String username, Model model, HttpServletRequest request) {
 	HttpSession session = request.getSession();
+	if (!userService.verifyLogin(username, session)) {
+	    return "redirect:/login";
+	}
 	User currentUser = userService.getUserByUsername(username);
 
 	model.addAttribute("newForwardOrder", new ForwardOrderForex());
