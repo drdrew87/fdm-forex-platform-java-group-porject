@@ -31,7 +31,7 @@
 			        </thead>
 			        <tbody>
 			        <tr th:each="wallets: ${listWallets}">
-			            <td class="text-center" th:text="${#strings.toUpperCase(wallets.currency.currencyCode)}" />
+			            <td th:text="${#strings.toUpperCase(wallets.currency.currencyCode)}" class="text-center" />
 			            <td th:text="${#numbers.formatDecimal(wallets.walletBalance,1,'COMMA',2,'POINT')}" class="text-end"/>
 			
 			            <td class="text-center">

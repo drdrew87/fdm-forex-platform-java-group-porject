@@ -34,9 +34,9 @@
 		        <tr th:each="forexorder : ${forwardorderlist}">
 		            <td><span th:text="${forexorder.orderId}"> </span></td>
 		            <td><span th:text="${#strings.toUpperCase(forexorder.buyCurrency.currencyCode)}">  </span></td>
-		            <td><span th:text="${forexorder.buyAmount}">  </span></td>
+		            <td class="text-end"><span th:text="${#numbers.formatDecimal(forexorder.buyAmount,1,'COMMA',2,'POINT')}">  </span></td>
 		            <td><span th:text="${#strings.toUpperCase(forexorder.sellCurrency.currencyCode)}">   </span></td>
-		            <td><span th:text="${forexorder.sellAmount}">  </span></td>
+		            <td class="text-end"><span th:text="${#numbers.formatDecimal(forexorder.sellAmount,1,'COMMA',2,'POINT')}">  </span></td>
 		            <td><span th:text="${forexorder.closingDate}">  </span></td>
 		        </tr>
 		        </tbody>
@@ -63,9 +63,9 @@
 		        <tr th:each="limitspotorderforex : ${limitspotorderforexlist}">
 		            <td><span th:text="${limitspotorderforex.orderId}"> </span></td>
 		            <td><span th:text="${#strings.toUpperCase(limitspotorderforex.buyCurrency.currencyCode)}">  </span></td>
-		            <td><span th:text="${limitspotorderforex.buyAmount}">  </span></td>
+		            <td class="text-end"><span th:text="${#numbers.formatDecimal(limitspotorderforex.buyAmount,1,'COMMA',2,'POINT')}">  </span></td>
 		            <td><span th:text="${#strings.toUpperCase(limitspotorderforex.sellCurrency.currencyCode)}">   </span></td>
-		            <td><span th:text="${limitspotorderforex.sellAmount}">  </span></td>
+		            <td class="text-end"><span th:text="${#numbers.formatDecimal(limitspotorderforex.sellAmount,1,'COMMA',2,'POINT')}">  </span></td>
 		            <td><span th:text="${limitspotorderforex.expiryDate}">  </span></td>
 		        </tr>
 		        </tbody>
@@ -87,7 +87,7 @@
 		        <tr th:each="marketspotorderforex : ${marketspotorderforexlist}">
 		            <td><span th:text="${marketspotorderforex.orderId}"> </span></td>
 		            <td><span th:text="${#strings.toUpperCase(marketspotorderforex.buyCurrency.currencyCode)}">  </span></td>
-		            <td><span th:text="${marketspotorderforex.buyAmount}">  </span></td>
+		            <td class="text-end"><span th:text="${#numbers.formatDecimal(marketspotorderforex.buyAmount,1,'COMMA',2,'POINT')}">  </span></td>
 		            <td><span th:text="${marketspotorderforex.expiryDate}">  </span></td>
 		        </tr>
 		        </tbody>
