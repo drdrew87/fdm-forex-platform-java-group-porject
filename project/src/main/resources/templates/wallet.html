@@ -13,78 +13,87 @@
 
 <body>
 <div class="container">
-	<h2>My Wallets</h2>
-	<div th:if="${emptyWalletList}">
-		<span th:text="'No wallet found in account'"></span>
-	</div>
-	<div th:unless="${emptyWalletList}">
-	<div>
-	    <table class="table table-bordered table-striped">
-	        <thead>
-	        <tr>
-	            <th>CURRENCY</th>
-	            <th>AMOUNT</th>
-	        </tr>
-	        </thead>
-	        <tbody>
-	        <tr th:each="wallets: ${listWallets}">
-	            <td th:text="${#strings.toUpperCase(wallets.currency.currencyCode)}" />
-	            <td th:text="${#numbers.formatDecimal(wallets.walletBalance,1,'COMMA',2,'POINT')}" />
-	
-	            <td>
-	            	<form th:action="@{/{username}/wallet/transfer/walletSelection(username=${username})}" method="post">
-	    				<button name="selectedWalletId" id="selectedWalletId" type="submit" th:value="${wallets.walletId}">Transfer</button>
+	<div class="row">
+		<div class="col-6">
+			<h2>My Wallets</h2>
+			<div th:if="${emptyWalletList}">
+				<span th:text="'No wallet found in account'"></span>
+			</div>
+			<div th:unless="${emptyWalletList}">
+			<div>
+			    <table class="table table-bordered table-striped">
+			        <thead>
+			        <tr>
+			            <th class="text-center">CURRENCY</th>
+			            <th class="text-center">AMOUNT</th>
+			            <th class="col-3"></th>
+			        </tr>
+			        </thead>
+			        <tbody>
+			        <tr th:each="wallets: ${listWallets}">
+			            <td class="text-center" th:text="${#strings.toUpperCase(wallets.currency.currencyCode)}" />
+			            <td th:text="${#numbers.formatDecimal(wallets.walletBalance,1,'COMMA',2,'POINT')}" class="text-end"/>
+			
+			            <td class="text-center">
+			            	<form th:action="@{/{username}/wallet/transfer/walletSelection(username=${username})}" method="post">
+			    				<button name="selectedWalletId" id="selectedWalletId" type="submit" th:value="${wallets.walletId}">Transfer</button>
+							</form>
+			            </td>
+			        </tr>
+			        </tbody>
+			    </table>
+			</div>
+
+			<div class="row">
+				<div class="col gy-3">
+					<form th:action="@{/{username}/wallet/createWallet(username=${username})}" method="get">
+				    	<button type="submit">Create Wallet</button>
 					</form>
-	            </td>
-	        </tr>
-	        </tbody>
-	    </table>
-	</div>
+				</div>
+				<br>
+				<div class="col">
+				    <span class="fw-bold grey" th:text="'TOTAL VALUE '"></span><br>
+				    <span class="grey" th:text="${#strings.toUpperCase(preferredCurrency)}"></span>
+				    <span class="totalvaluenumber fw-bold .align-middle" th:text="${#numbers.formatDecimal(totalValue,1,'COMMA',2,'POINT')}"></span>
+				</div>
+			</div>
+			
+			</div>
+			
+		</div>
+		<br><br>
 
-	<br>
-	<div>
-	    <span class="fw-bold grey" th:text="'TOTAL VALUE '"></span><br>
-	    <span class="grey" th:text="${#strings.toUpperCase(preferredCurrency)}"></span>
-	    <span class="totalvaluenumber fw-bold .align-middle" th:text="${#numbers.formatDecimal(totalValue,1,'COMMA',2,'POINT')}"></span>
-	</div>
-	</div>
-	<br>
-	<div>
-		<form th:action="@{/{username}/wallet/createWallet(username=${username})}" method="get">
-	    	<button type="submit">Create Wallet</button>
-		</form>
-	</div>
-	<br><br>
-
-	
-	<h2>My Bank Account</h2>
-	<div th:if="${emptyBankList}">
-		<span th:text="'No bank account found'"></span>
-	</div>
-	<div th:unless="${emptyBankList}">
-	    <table class="table table-bordered table-striped">
-	        <thead>
-	        <tr>
-	            <th>BANK ACCOUNT #</th>
-	            <th>CURRENCY</th>
-	        </tr>
-	        </thead>
-	        <tbody>
-	        <tr th:each="banks: ${listBanks}">
-	            <td th:text="${banks.bankAccountNumber}" />
-	            <td th:text="${#strings.toUpperCase(banks.currency.currencyCode)}" />
-	        </tr>
-	        </tbody>
-	    </table>
-	</div>
-	
-	<br>
-	<div>
-    	<form th:action="@{/{username}/wallet/registerBankAccount(username=${username})}" method="get">
-	    	<button type="submit">Register bank account</button>
-		</form>
+		<div class="col-6">
+			<h2>My Bank Account</h2>
+			<div th:if="${emptyBankList}">
+				<span th:text="'No bank account found'"></span>
+			</div>
+			<div th:unless="${emptyBankList}">
+			    <table class="table table-bordered table-striped">
+			        <thead>
+			        <tr>
+			            <th>BANK ACCOUNT NO.</th>
+			            <th>CURRENCY</th>
+			        </tr>
+			        </thead>
+			        <tbody>
+			        <tr th:each="banks: ${listBanks}">
+			            <td th:text="${banks.bankAccountNumber}" />
+			            <td th:text="${#strings.toUpperCase(banks.currency.currencyCode)}" />
+			        </tr>
+			        </tbody>
+			    </table>
+			</div>
+			
+			<br>
+			<div>
+		    	<form th:action="@{/{username}/wallet/registerBankAccount(username=${username})}" method="get">
+			    	<button type="submit">Register bank account</button>
+				</form>
+		    </div>
+	    </div>
+	    
     </div>
-    
 </div>
 
 </body>

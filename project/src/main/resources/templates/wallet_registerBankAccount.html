@@ -2,7 +2,7 @@
 <html xmlns:th= " http://www.thymeleaf.org ">
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Stanley | Register Bank Account</title>
+	<title>Stanley | New Bank Account</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
@@ -12,28 +12,32 @@
 </header>
 
 <body>
-	<div>
-		<p>Register Bank Account</p>
+<div class="container">
+	<div class="col-4">
+		<h2>Register Bank Account</h2>
+		<br>
 		<form th:action="@{/{username}/wallet/registerBankAccount(username=${username})}" th:object="${currencyList}" method="post">
 			<div>
 				<label for="bankAccountNumber">Bank Account Number</label>
 			</div>
 			<div>
-				<input type="number" id="bankAccountNumber" name="bankAccountNumber" required/>
+				<input type="number" id="bankAccountNumber" name="bankAccountNumber" class="order-input-field"required/>
 			</div>
 			<div>
 				<label for="walletCurrencyCode">Bank Currency</label>
 			</div>
 			<div>
-				<input list="walletCurrency" id="walletCurrencyCode" name="walletCurrencyCode" required/>
+				<input list="walletCurrency" id="walletCurrencyCode" name="walletCurrencyCode" class="order-input-field" required/>
 				<datalist id="walletCurrency">
 					<option th:each="currency : ${currencyList}" th:value="${#strings.toUpperCase(currency.currencyCode)}" th:label="${currency.currencyName}">
 				</datalist>
 			</div>
+			<br>
 			<div>
-				<button type="submit">Register new bank account</button>
+				<button type="submit" class="order-submit-btn">Register new bank account</button>
 			</div>
 		</form>
 	</div>
+</div>
 </body>
 </html>

@@ -12,9 +12,10 @@
 </header>
 
 <body>
-	<div class="container">
-		<h2>My Current Spot Orders</h2>
-		<div>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h2>My Current Spot Orders</h2>
 		    <table class="table table-bordered table-striped">
 		        <thead>
 		        <tr>
@@ -28,19 +29,20 @@
 		        <tbody>
 		        <tr th:each="spots: ${listCurrentSpotOrders}">
 		            <td th:text="${(spots.buyAmount)}" />
-		            <td th:text="${(spots.buyCurrency.currencyCode)}" />
+		            <td th:text="${#strings.toUpperCase(spots.buyCurrency.currencyCode)}" />
 		            <td th:text="${(spots.sellAmount)}" />
-		            <td th:text="${(spots.sellCurrency.currencyCode)}" />
+		            <td th:text="${#strings.toUpperCase(spots.sellCurrency.currencyCode)}" />
 		            <td th:text="${(spots.expiryDate)}" />
 		        </tr>
 		        </tbody>
 		    </table>
 		</div>
-		<br>
-		<br>
-		<br>
-		<h2>My Current Forward Orders</h2>
-		<div>
+	</div>
+	<br>
+	
+	<div class="row">
+		<div class="col">
+			<h2>My Current Forward Orders</h2>
 		    <table class="table table-bordered table-striped">
 		        <thead>
 		        <tr>
@@ -49,27 +51,25 @@
 		            <th>Sell Amount</th>
 		            <th>Sell Currency</th>
 		            <th>Closing Date</th>
-		            <th>Expiry Date</th>
 		        </tr>
 		        </thead>
 		        <tbody>
 		        <tr th:each="forwards: ${listCurrentForwardOrders}">
 		            <td th:text="${(forwards.buyAmount)}" />
-		            <td th:text="${(forwards.buyCurrency.currencyCode)}" />
+		            <td th:text="${#strings.toUpperCase(forwards.buyCurrency.currencyCode)}" />
 		            <td th:text="${(forwards.sellAmount)}" />
-		            <td th:text="${(forwards.sellCurrency.currencyCode)}" />
-		            <td th:text="${(forwards.expiryDate)}" />
+		            <td th:text="${#strings.toUpperCase(forwards.sellCurrency.currencyCode)}" />
 		            <td th:text="${(forwards.closingDate)}" />
 		        </tr>
 		        </tbody>
 		    </table>
 		</div>
-		<br>
-		<br>
-		<br>
+	</div>
+	<br>
 		
-		<h2>My Spot Transactions</h2>
-		<div>
+	<div class="row">
+		<div class="col">
+			<h2>My Spot Transactions</h2>
 		    <table class="table table-bordered table-striped">
 		        <thead>
 		        <tr>
@@ -84,19 +84,15 @@
 		        <tr th:each="spots: ${listSpotOrderTransactionHistory}">
 		            <td th:text="${(spots.transactionTime)}" />
 		            <td th:text="${(spots.user1BuyCurrencyAmount)}" />
-		            <td th:text="${(spots.user1BuyCurrency.currencyCode)}" />
+		            <td th:text="${#strings.toUpperCase(spots.user1BuyCurrency.currencyCode)}" />
 		            <td th:text="${(spots.user2BuyCurrencyAmount)}" />
-		            <td th:text="${(spots.user2BuyCurrency.currencyCode)}" />
+		            <td th:text="${#strings.toUpperCase(spots.user2BuyCurrency.currencyCode)}" />
 		        </tr>
 		        </tbody>
 		    </table>
 		</div>
-		<br>
-		<br>
-		<br>
-		
-		<h2>My Forward Transactions</h2>
-		<div>
+		<div class="col">
+			<h2>My Forward Transactions</h2>
 		    <table class="table table-bordered table-striped">
 		        <thead>
 		        <tr>
@@ -109,12 +105,12 @@
 		        <tr th:each="forwards: ${listForwardOrderTransaction}">
 		            <td th:text="${(forwards.transactionTime)}" />
 		            <td th:text="${(forwards.creatorReceivedAmount)}" />
-		            <td th:text="${(forwards.transactionCurrency.currencyCode)}" />
+		            <td th:text="${#strings.toUpperCase(forwards.transactionCurrency.currencyCode)}" />
 		        </tr>
 		        </tbody>
 		    </table>
 		</div>
-	
 	</div>
+</div>
 </body>
 </html>

@@ -85,7 +85,6 @@ a:hover:before {
 	background: #ebebeb;
 	padding: 80px;
 	text-align: center;
-	margin-top: 120px;
 }
 .welcome-box {
 	padding: 50px 150px;
@@ -107,10 +106,9 @@ h2{
 	cursor: pointer;
 }
 .input-group {
-	padding: 50px 250px;
+	padding: 50px 200px;
 	position: relative;
 	width: 280px;
-	
 }
 .input-field {
 	width: 100%;
@@ -198,4 +196,19 @@ button{
 }
 .order-submit-btn{
 	width: 65%;
+	padding: 6px 20px;
+}
+#selectedWalletId, #buyOrderId{
+	font-family: 'Roboto', sans-serif;
+	background-color: transparent;
+	border: 1px solid grey;
+	border-radius: 10px;
+	color: grey;
+	padding: 3px 25px;
+	font-weight: 500;
+	font-size: 15px;
+}
+#selectedWalletId:hover, #buyOrderId:hover{
+	background-color: #373737;
+	color: white;
 }

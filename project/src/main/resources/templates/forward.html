@@ -60,15 +60,15 @@
 			</div>
 			<br>
 			<div>
-				<button type="submit" class="order-submit-btn">Submit New Forward Order</button>
+				<button type="submit" class="order-submit-btn">Submit new forward order</button>
 			</div>
 		</form>
-	</div>
+		</div>
 	
 	<div class="col-8">
 		<h2>Forward Orders</h2>
 		<div th:if="${emptyForwardOrderList}">
-			<p>No forward order listed</p>
+			<p class="grey">No forward order listed</p>
 		</div>
 		<div th:unless="${emptyForwardOrderList}">
 		<table class="table table-bordered table-striped">
@@ -88,7 +88,7 @@
 				<td><span th:text="${#strings.toUpperCase(order.sellCurrency.currencyCode)}"></span></td>
 				<td><span th:text="${order.sellAmount}"></span></td>
 				<td><span th:text="${order.closingDate}"></span></td>
-				<td>
+				<td class="text-center">
 					<form th:action="@{/{username}/forward/submitBuyOrder(username=${username})}" method="post">
 						<button name="buyOrderId" id="buyOrderId" type="submit" th:value="${order.orderId}">Buy order</button>
 					</form>
@@ -96,7 +96,7 @@
 			</tr>
 		</table>
 		</div>
-		<div th:if="${insufficientFund}">Insufficient fund in wallet</div>
+		<div class="text-danger fw-bold" th:if="${insufficientFund}">Insufficient fund in wallet</div>
 	</div>
 	</div>
 </div>
