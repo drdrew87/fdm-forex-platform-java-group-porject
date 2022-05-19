@@ -53,13 +53,13 @@
 			</div>
 			<br>
 			
-			<div th:if="${orderCreated}">Order created successfully</div>
-			<div th:if="${orderStatus=='filled'}">Order fully filled</div>
-			<div th:if="${orderStatus=='partial'}">Order partially filled</div>
-			<div th:if="${differentCurrencyRequired}">Buy currency and sell currency cannot be the same</div>
-			<div th:if="${insufficientFund}">Insufficient fund in wallet</div>
-			<div th:if="${zeroBuyAmount}">Buy amount must be more than 0</div>
-			<div th:if="${invalidExcahngeRate}">Invalid exchange rate, rate exceeds market rate by more than 25%</div>
+			<div class="text-success fw-bold"th:if="${orderCreated}">Order created successfully</div>
+			<div class="fw-bold"th:if="${orderStatus=='filled'}">Order fully filled</div>
+			<div class="text-warning fw-bold" th:if="${orderStatus=='partial'}">Order partially filled</div>
+			<div class="text-danger fw-bold" th:if="${differentCurrencyRequired}">Buy currency and sell currency cannot be the same</div>
+			<div class="text-danger fw-bold" th:if="${insufficientFund}">Insufficient fund in wallet</div>
+			<div class="text-danger fw-bold" th:if="${zeroBuyAmount}">Buy amount must be more than 0</div>
+			<div class="text-danger fw-bold" th:if="${invalidExcahngeRate}">Invalid exchange rate, rate exceeds market rate by more than 25%</div>
 			<div></div>
 
 			<div>
@@ -77,7 +77,7 @@
 						<label>Buy Amount</label>
 					</div>
 					<div>
-						<input th:field="*{buyAmount}" class="order-input-field" required>
+						<input th:field="*{buyAmount}" type="number" class="order-input-field" required>
 					</div>
 					<div>
 						<label>Sell Currency</label>
@@ -139,8 +139,6 @@
 					</tr>
 				</table>
 			</div>
-			<br>
-			<br>
 			<br>
 		
 			<div>

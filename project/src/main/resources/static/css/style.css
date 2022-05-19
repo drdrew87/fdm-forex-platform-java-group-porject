@@ -59,6 +59,7 @@ a:hover:before {
 	font-size: 18px;
 	font-weight: bold;
 	letter-spacing: 3px;
+	margin-left: 20px;
 }
 .landing-nav-btn{
 	float: right;
@@ -87,7 +88,7 @@ a:hover:before {
 	text-align: center;
 }
 .welcome-box {
-	padding: 50px 150px;
+	padding: 50px 180px;
 }
 h1{
 	font-size:42px;
@@ -97,6 +98,7 @@ h2{
 	font-weight: 700;
 	color: #373737;
 }
+
 #landing-signupbtn{
 	padding: 15px 70px;
 	color: white;
@@ -106,9 +108,10 @@ h2{
 	cursor: pointer;
 }
 .input-group {
-	padding: 50px 200px;
+	padding: 30px 200px;
 	position: relative;
-	width: 280px;
+	width: 300px;
+	margin-left: 120px;
 }
 .input-field {
 	width: 100%;
@@ -211,4 +214,8 @@ button{
 #selectedWalletId:hover, #buyOrderId:hover{
 	background-color: #373737;
 	color: white;
+}
+#alertRegisterSuccess{
+	color: green;
+	font-weight: bold;
 }

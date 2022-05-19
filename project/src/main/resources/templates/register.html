@@ -16,11 +16,9 @@
 	</nav>
 </header>
 <body>
-<!-- 	<div id="alertRegisterSuccess"></div> -->
-	
 	<div class="landing-box">
 		<div class="input-group">
-			<p><strong>Register New Account</strong></p>
+			<h1>Create Account</h1>
 			<br>
 			<form th:action="@{/register}" method="post" th:object="${user}">
 				<input type="text" th:field="*{username}" placeholder="Username" class="input-field" required>
@@ -30,9 +28,9 @@
 					<datalist id="currencies">
 						<option th:each="currency:${currencies}" th:value="${#strings.toUpperCase(currency.currencyCode)}"  th:label="${currency.currencyName}"></option>
 					</datalist>
-				<button type = "submit" class="submit-btn" id="register_submit" onclick="checkPasswordMatch(event)">REGISTER</button>
 				<br>
 				<span class ="errormsg" id="password_status"></span>
+				<button type = "submit" class="submit-btn" id="register_submit" onclick="checkPasswordMatch(event)">REGISTER</button>
 			</form> 
 		</div>
 	</div>
@@ -52,26 +50,26 @@
 			return true;
 		}
 	}
-/* 	const alertsuccess = document.getElementById('alertRegisterSuccess')
-
-	const alert = (message, type) => {
-	  const wrapper = document.createElement('div')
-	  wrapper.innerHTML = [
-	    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-	    `   <div>${message}</div>`,
-	    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-	    '</div>'
-	  ].join('')
-
-	  alertsuccess.append(wrapper)
+	var inputs = document.querySelectorAll("input[list]");
+	for (var i = 0; i < inputs.length; i++){
+		inputs[i].addEventListener("change", function () {
+			console.log("changed");
+			var optionFound = false,
+		      datalist = this.list;
+		
+		for (var j = 0; j < datalist.options.length; j++) {
+			     if (this.value == datalist.options[j].value) {
+			       optionFound = true;
+			       break;
+			     }
+			 }
+		if (optionFound) {
+		      this.setCustomValidity("");
+		    } else {
+		      this.setCustomValidity("Please select a valid value.");
+		    }
+		  });
 	}
-
-	const alertTrigger = document.getElementById('register_submit')
-	if (alertTrigger) {
-	  alertTrigger.addEventListener('click', () => {
-	    alert('You have successfully registered an account!', 'success')
-	  })
-	} */
 	
 	</script>
 
