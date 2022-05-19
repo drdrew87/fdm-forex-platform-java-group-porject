@@ -31,7 +31,9 @@ public class WalletTransferController {
     public String accessWalletTransferPage(@PathVariable String username, HttpServletRequest request, Model model) {
 	User currentUser = userService.getUserByUsername(username);
 	HttpSession session = request.getSession();
-	
+	if (!userService.verifyLogin(username, session)) {
+	    return "redirect:/login";
+	}
 	bankService.displayBankListInDropdown(currentUser, model);
 	
 	boolean isBankSelected = bankService.selectBank(session, model);

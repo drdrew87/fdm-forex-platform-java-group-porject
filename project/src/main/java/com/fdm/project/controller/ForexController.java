@@ -44,6 +44,9 @@ public class ForexController {
     @GetMapping("/{username}/forex")
     public String accessForexPage(@PathVariable String username, Model model, HttpServletRequest request) {
 	HttpSession session = request.getSession();
+	if (!userService.verifyLogin(username, session)) {
+	    return "redirect:/login";
+	}
 	User currentUser = userService.getUserByUsername(username);
 	if (session.getAttribute("spotOrderType")==null) {
 	    session.setAttribute("spotOrderType", "market");

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class ProfileController {
 
@@ -36,8 +39,12 @@ public class ProfileController {
 //    private
 
     @GetMapping("/{username}/myProfile")
-    public String goToPortfolio(@PathVariable String username, Model model) {
-        User user = userService.getUserByUsername(username);
+    public String goToPortfolio(@PathVariable String username, Model model, HttpServletRequest request) {
+	HttpSession session = request.getSession();
+	if (!userService.verifyLogin(username, session)) {
+	    return "redirect:/login";
+	}
+	User user = userService.getUserByUsername(username);
 
         List<SpotOrderForex> listCurrentSpotOrders = spotOrderForexService.getCurrentSpotOrderByUser(user);
         model.addAttribute("listCurrentSpotOrders", listCurrentSpotOrders);

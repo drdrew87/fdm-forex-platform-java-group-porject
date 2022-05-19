@@ -2,6 +2,9 @@ package com.fdm.project.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +30,12 @@ public class CreateWalletController {
     private UserService userService;
     
     @GetMapping("/{username}/wallet/createWallet")
-    public String accessCreateWalletPage(@PathVariable String username, Model model) {
+    public String accessCreateWalletPage(@PathVariable String username, Model model, HttpServletRequest request) {
+	HttpSession session = request.getSession();
+	if (!userService.verifyLogin(username, session)) {
+	    return "redirect:/login";
+	}
+	
 	ArrayList<Currency> currencyList = (ArrayList<Currency>) currencyService.getAllCurrencies();
 	model.addAttribute("currencyList", currencyList);
 	return "wallet_createWallet";
