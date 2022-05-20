@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -115,9 +116,9 @@ public class SpotOrderForexService {
             }
         }
         
-        java.util.Date date = new java.util.Date();
-        long timeInMilliSeconds = date.getTime();
-        java.sql.Date curdate = new java.sql.Date(timeInMilliSeconds);
+        
+        LocalDate current_date = LocalDate.now();
+        Date curdate = Date.valueOf(current_date);
         if (newOrder.getExpiryDate().before(curdate)) {
             isValid = false;
             redirectAttrs.addFlashAttribute("outDatedOrder", true);
