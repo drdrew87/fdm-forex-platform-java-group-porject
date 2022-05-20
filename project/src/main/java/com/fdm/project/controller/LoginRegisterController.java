@@ -35,7 +35,7 @@ public class LoginRegisterController {
 	}
 
 	@PostMapping("/login")
-	public String verifyUserForLogin(@RequestParam String username, @RequestParam String password, HttpServletRequest req) {
+	public String verifyUserForLogin(@RequestParam String username, @RequestParam String password, HttpServletRequest req, RedirectAttributes redirectAttr) {
 		
 		boolean isValidUser = userService.verifyUser(username, password);
 		
@@ -44,7 +44,8 @@ public class LoginRegisterController {
 			session.setAttribute("active_user", username);
 			return "redirect:/" + username + "/portfolio";
 		} else {
-			return "login";
+			redirectAttr.addFlashAttribute("incorrectVerification", true);
+			return "redirect:/login";
 		}
 
 	}
@@ -69,7 +70,8 @@ public class LoginRegisterController {
 			redirectAttr.addFlashAttribute("successfulRegistration", true);
 			return "redirect:/login";
 		} else {
-		return "register";
+			redirectAttr.addFlashAttribute("notUniqueUsername", true);
+			return "redirect:/register";
 		}
 	}
 	
