@@ -97,7 +97,7 @@ public class SpotOrderForexService {
             return isValid;
         }
 
-        if (newOrder.getBuyAmount() <= 0) {
+        if (newOrder.getBuyAmount() <= 0 || newOrder.getSellAmount()<0) {
             isValid = false;
             redirectAttrs.addFlashAttribute("zeroBuyAmount", true);
             return isValid;
