@@ -139,6 +139,7 @@ h2{
 }
 .errormsg{
 	color: red;
+	font-size: bold;
 }
 button{
 	font-family: 'Montserrat', sans-serif;

@@ -30,6 +30,7 @@
 					</datalist>
 				<br>
 				<span class ="errormsg" id="password_status"></span>
+				<div th:if="${notUniqueUsername}" class="errormsg" id="notUniqueUsername">Username is used by another user.</div>
 				<button type = "submit" class="submit-btn" id="register_submit" onclick="checkPasswordMatch(event)">REGISTER</button>
 			</form> 
 		</div>

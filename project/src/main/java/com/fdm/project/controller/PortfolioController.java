@@ -5,6 +5,7 @@ import com.fdm.project.model.SpotOrderTransaction;
 import com.fdm.project.model.User;
 import com.fdm.project.model.Wallet;
 import com.fdm.project.service.ForwardTransactionService;
+import com.fdm.project.service.SpotOrderTransactionService;
 import com.fdm.project.service.SpotTransactionService;
 import com.fdm.project.service.UserService;
 import com.fdm.project.service.WalletService;
@@ -32,6 +33,8 @@ public class PortfolioController {
 
     @Autowired
     private ForwardTransactionService forwardTransactionService;
+    @Autowired 
+    private SpotOrderTransactionService spotOrderTransactionService;
 
 
     @GetMapping("/{username}/portfolio")
@@ -54,10 +57,10 @@ public class PortfolioController {
         Double totalValue = walletService.totalValue(user);
         model.addAttribute("totalValue", totalValue);
 
-        List<SpotOrderTransaction> listSpotOrderTransactionHistory = spotTransactionService.getAllSpotOrderTransactionHistory();
+        List<SpotOrderTransaction> listSpotOrderTransactionHistory = spotOrderTransactionService.getSpotOrderTransactionByUser(user);
         model.addAttribute("listSpotOrderTransactionHistory",listSpotOrderTransactionHistory);
 
-        List<ForwardOrderTransaction> listForwardOrderTransaction = forwardTransactionService.getAllSpotOrderTransactionHistory();
+        List<ForwardOrderTransaction> listForwardOrderTransaction = forwardTransactionService.getForwardOrderTransactionByUser(user);
         model.addAttribute("listForwardOrderTransaction",listForwardOrderTransaction);
 
         return "portfolio";
