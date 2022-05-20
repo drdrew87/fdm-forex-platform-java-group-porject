@@ -100,9 +100,9 @@ public class ForexController {
 	newOrder.setActive(true);
 	if (spotOrderForexService.isValidSpotOrder(newOrder, redirectAttrs)) {
 	    spotOrderForexService.addNewSpotOrder(newOrder);
+	    matchingService.matchSpotOrder(newOrder, redirectAttrs);
 	}
 	
-	matchingService.matchSpotOrder(newOrder, redirectAttrs);
 	cleaningService.cleanUpSpotOrders();
 	return "redirect:/"+ username + "/forex";
     }

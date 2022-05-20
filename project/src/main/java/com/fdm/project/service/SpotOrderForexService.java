@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -102,17 +103,26 @@ public class SpotOrderForexService {
             redirectAttrs.addFlashAttribute("zeroBuyAmount", true);
             return isValid;
         }
-//
-//        if (newOrder.getSellAmount() > 0) {
-//            double currentRate = newOrder.getSellAmount() / newOrder.getBuyAmount();
-//            double marketRate = newOrder.getSellCurrency().getCurrencyRate() / newOrder.getBuyCurrency().getCurrencyRate();
-//            // if input exchange rate exceeds market exchange rate by 25%
-//            if (Math.abs((marketRate - currentRate) * 100 / marketRate) > 25) {
-//                isValid = false;
-//                redirectAttrs.addFlashAttribute("invalidExcahngeRate", true);
-//                return isValid;
-//            }
-//        }
+
+        if (newOrder.getSellAmount() > 0) {
+            double currentRate = newOrder.getSellAmount() / newOrder.getBuyAmount();
+            double marketRate = newOrder.getSellCurrency().getCurrencyRate() / newOrder.getBuyCurrency().getCurrencyRate();
+            // if input exchange rate exceeds market exchange rate by 25%
+            if (Math.abs((marketRate - currentRate) * 100 / marketRate) > 25) {
+                isValid = false;
+                redirectAttrs.addFlashAttribute("invalidExcahngeRate", true);
+                return isValid;
+            }
+        }
+        
+        java.util.Date date = new java.util.Date();
+        long timeInMilliSeconds = date.getTime();
+        java.sql.Date curdate = new java.sql.Date(timeInMilliSeconds);
+        if (newOrder.getExpiryDate().before(curdate)) {
+            isValid = false;
+            redirectAttrs.addFlashAttribute("outDatedOrder", true);
+            return isValid;
+        }
 
         if (isLimitOrder) {
             isValid = (sellWallet.getWalletBalance() >= newOrder.getSellAmount());
@@ -125,7 +135,7 @@ public class SpotOrderForexService {
         } else {
             redirectAttrs.addFlashAttribute("insufficientFund", true);
         }
-
+        
         return isValid;
     }
 

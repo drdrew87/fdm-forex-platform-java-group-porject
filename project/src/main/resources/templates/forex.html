@@ -60,6 +60,7 @@
 			<div class="text-danger fw-bold" th:if="${insufficientFund}">Insufficient fund in wallet</div>
 			<div class="text-danger fw-bold" th:if="${zeroBuyAmount}">Buy amount must be more than 0</div>
 			<div class="text-danger fw-bold" th:if="${invalidExcahngeRate}">Invalid exchange rate, rate exceeds market rate by more than 25%</div>
+			<div class="text-danger fw-bold" th:if="${outDatedOrder}">Invalid expiry date</div>
 			<div></div>
 
 			<div>
