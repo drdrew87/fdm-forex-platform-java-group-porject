@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Stanley | Login</title>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+
+</head>
+
+<header>
+	<nav>
+		<ul>
+			<li><a th:href="@{/}" id="landing-stanley">STANLEY</a></li>
+			<li><button type="button" class="landing-nav-btn" onclick="location.href='register'">Sign up</button></li>	
+		</ul>
+	</nav>
+</header>
+
+<body>
+<div class="container">
+	<div class="landing-box">
+		<div class="input-group">
+		<div th:if="${successfulRegistration}" id="alertRegisterSuccess">Registration successful! Please login.</div>
+			<br>
+			<h1>Welcome back!</h1>
+			<br><br>
+			<form th:action="@{/login}" method="post" id="login">
+				<input type="text" name="username" placeholder="Username" class="input-field" required>
+				<input type="password" name="password" placeholder="Password" class="input-field" required>
+				<br>
+				<div th:if="${incorrectVerification}" class="errormsg" id="incorrectVerification">Incorrect username/password</div>
+				<button type = "submit" class="submit-btn">LOGIN</button>
+			</form> 
+		</div>
+	</div>	
+</div>
+
+
+<script>
+	function checkPasswordMatch(event){
+		var password = document.getElementById('register_password').value;
+		var confirmpassword = document.getElementById('register_confirmpassword').value;
+		var status = document.getElementById('password_status');
+		
+		if (password != confirmpassword) {
+			status.innerHTML = "Passwords do not match";
+			event.preventDefault();
+			return false;
+		} else {
+			status.innerHTML = "";
+			return true;
+		}
+	}
+	const alertsuccess = document.getElementById('alertRegisterSuccess')
+
+	const alert = (message, type) => {
+	  const wrapper = document.createElement('div')
+	  wrapper.innerHTML = [
+	    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+	    `   <div>${message}</div>`,
+	    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+	    '</div>'
+	  ].join('')
+
+	  alertsuccess.append(wrapper)
+	}
+
+	
+	</script>
+</body>
+</html>

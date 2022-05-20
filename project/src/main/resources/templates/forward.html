@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Stanley | Forward</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+	<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+</head>
+
+<header th:insert="navbar :: navbar">
+</header>
+
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-4">
+		<h2>Create New Forward Order</h2>
+		<div class="text-danger fw-bold" th:if="${differentCurrencyRequired}">Buy currency and sell currency cannot be the same</div>
+		<div class="text-danger fw-bold" th:if="${insufficientFundNew}">Insufficient fund in wallet</div>
+		<div class="text-danger fw-bold" th:if="${zeroBuyAmount}">Buy amount or sell amount must be more than 0</div>
+		<form th:action="@{/{username}/forward/submitOrder(username=${username})}" th:object="${newForwardOrder}" method="post">
+			<div>
+				<label>Buy Currency</label>
+			</div>
+			<div>
+				<select name="buyCurrencyId" id="buyCurrencyId" class="order-input-field" required>
+					<option th:if="${emptyWalletList}" value="" selected disabled>No wallet available for user</option>
+					<option th:unless="${emptyWalletList}" value="" selected disabled>Choose sell currency</option>
+					<option th:each="wallet:${userWallets}" th:value="${wallet.currency.currencyId}" th:text="${#strings.toUpperCase(wallet.currency.currencyCode)} + ' - ' + ${wallet.currency.currencyName}" >
+				</select>
+			</div>
+			<div>
+				<label>Buy Amount</label>
+			</div>
+			<div>
+				<input th:field="*{buyAmount}" class="order-input-field">
+			</div>
+			<div>
+				<label>Sell Currency</label>
+			</div>
+			<div>
+
+				<select name="sellCurrencyId" id="sellCurrencyId" class="order-input-field" required>
+					<option value="" selected disabled>Choose buy currency</option>
+					<option th:each="currency:${buyCurrencies}" th:value="${currency.currencyId}" th:text="${#strings.toUpperCase(currency.currencyCode)} + ' - ' + ${currency.currencyName}">
+				</select>
+			</div>
+			<div>
+				<label>Sell Amount</label>
+			</div>
+			<div>
+				<input th:field="*{sellAmount}" class="order-input-field">
+			</div>
+			<div>
+				<label>Closing Date</label>
+			</div>
+			<div>
+				<input th:field="*{closingDate}" type="date" class="order-input-field">
+			</div>
+			<br>
+			<div>
+				<button type="submit" class="order-submit-btn">Submit new forward order</button>
+			</div>
+		</form>
+		</div>
+	
+	<div class="col-8">
+		<h2>Forward Orders</h2>
+		<div th:if="${emptyForwardOrderList}">
+			<p class="grey">No forward order listed</p>
+		</div>
+		<div th:unless="${emptyForwardOrderList}">
+		<table class="table table-bordered table-striped">
+			<tr>
+				<th>ORDER</th>
+				<th>BUY</th>
+				<th>AMOUNT</th>
+				<th>SELL</th>
+				<th>AMOUNT</th>
+				<th>CLOSING</th>
+				<th></th>
+			</tr>
+			<tr th:each="order: ${forwardOrderList}">
+				<td><span th:text="${order.orderId}"></span></td>
+				<td><span th:text="${#strings.toUpperCase(order.buyCurrency.currencyCode)}"></span></td>
+				<td class="text-end"><span th:text="${#numbers.formatDecimal(order.buyAmount,1,'COMMA',2,'POINT')}"></span></td>
+				<td><span th:text="${#strings.toUpperCase(order.sellCurrency.currencyCode)}"></span></td>
+				<td class="text-end"><span th:text="${#numbers.formatDecimal(order.sellAmount,1,'COMMA',2,'POINT')}"></span></td>
+				<td><span th:text="${order.closingDate}"></span></td>
+				<td class="text-center">
+					<form th:action="@{/{username}/forward/submitBuyOrder(username=${username})}" method="post">
+						<button name="buyOrderId" id="buyOrderId" type="submit" th:value="${order.orderId}">Buy order</button>
+					</form>
+				</td>
+			</tr>
+		</table>
+		</div>
+		<div class="text-danger fw-bold" th:if="${insufficientFund}">Insufficient fund in wallet</div>
+	</div>
+	</div>
+</div>
+</body>
+</html>

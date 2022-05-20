@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Stanley | Welcome</title>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+</head>
+
+<header>
+	<nav>
+		<ul>
+			<li><a th:href="@{/}" id="landing-stanley">STANLEY</a></li>
+			<li><button type="button" class="landing-nav-btn" onclick="location.href='login'">Login</button></li>
+		</ul>
+	</nav>
+</header>
+
+<body>
+
+	<div class="landing-box">
+		<div class="welcome-box">
+			<h1>Trade smarter, faster and safer</h1>
+			<br><br>
+			<p>In Stanley, we’re invested in your success. With over xx years’ experience in the financial markets, 
+			we will provide you with the trading tools that you need to succeed.</p>
+			<br><br>
+			<button type="button" id="landing-signupbtn" onclick="location.href='register'">Sign Up</button>
+		</div>
+	</div>
+
+
+</body>
+</html>

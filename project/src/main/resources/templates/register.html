@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Stanley | Register</title>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+
+</head>
+
+<header>
+	<nav>
+		<ul>
+			<li><a th:href="@{/}" id="landing-stanley">STANLEY</a></li>
+			<li><button type="button" class="landing-nav-btn" onclick="location.href='login'">Login</button></li>	
+		</ul>
+	</nav>
+</header>
+<body>
+	<div class="landing-box">
+		<div class="input-group">
+			<h1>Create Account</h1>
+			<br>
+			<form th:action="@{/register}" method="post" th:object="${user}">
+				<input type="text" th:field="*{username}" placeholder="Username" class="input-field" required>
+				<input type="password" name="password" th:field="*{password}" placeholder="Password" class="input-field" id="register_password" required>
+				<input type="password" name="confirmpassword" placeholder="Confirm Password" class="input-field" id="register_confirmpassword" required>
+				<input list="currencies"  name="preferredcurrency" class="input-field" placeholder="Please select your preferred currency" required>	
+					<datalist id="currencies">
+						<option th:each="currency:${currencies}" th:value="${#strings.toUpperCase(currency.currencyCode)}"  th:label="${currency.currencyName}"></option>
+					</datalist>
+				<br>
+				<span class ="errormsg" id="password_status"></span>
+				<div th:if="${notUniqueUsername}" class="errormsg" id="notUniqueUsername">Username is used by another user.</div>
+				<button type = "submit" class="submit-btn" id="register_submit" onclick="checkPasswordMatch(event)">REGISTER</button>
+			</form> 
+		</div>
+	</div>
+	
+	<script>
+	function checkPasswordMatch(event){
+		var password = document.getElementById('register_password').value;
+		var confirmpassword = document.getElementById('register_confirmpassword').value;
+		var status = document.getElementById('password_status');
+		
+		if (password != confirmpassword) {
+			status.innerHTML = "Passwords do not match";
+			event.preventDefault();
+			return false;
+		} else {
+			status.innerHTML = "";
+			return true;
+		}
+	}
+	var inputs = document.querySelectorAll("input[list]");
+	for (var i = 0; i < inputs.length; i++){
+		inputs[i].addEventListener("change", function () {
+			console.log("changed");
+			var optionFound = false,
+		      datalist = this.list;
+		
+		for (var j = 0; j < datalist.options.length; j++) {
+			     if (this.value == datalist.options[j].value) {
+			       optionFound = true;
+			       break;
+			     }
+			 }
+		if (optionFound) {
+		      this.setCustomValidity("");
+		    } else {
+		      this.setCustomValidity("Please select a valid value.");
+		    }
+		  });
+	}
+	
+	</script>
+
+</body>
+</html>

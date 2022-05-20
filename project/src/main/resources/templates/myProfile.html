@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+</head>
+
+<header th:insert="navbar :: navbar">
+</header>
+
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h2>My Current Spot Orders</h2>
+		    <table class="table table-bordered table-striped">
+		        <thead>
+		        <tr>
+		            <th>Buy Amount</th>
+		            <th>Buy Currency</th>
+		            <th>Sell Amount</th>
+		            <th>Sell Currency</th>
+		            <th>Expiry Date</th>
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr th:each="spots: ${listCurrentSpotOrders}">
+		            <td th:text="${#numbers.formatDecimal(spots.buyAmount,1,'COMMA',2,'POINT')}" class="text-end"/>
+		            <td th:text="${#strings.toUpperCase(spots.buyCurrency.currencyCode)}" class="text-center"/>
+		            <td th:text="${#numbers.formatDecimal(spots.sellAmount,1,'COMMA',4,'POINT')}" class="text-end"/>
+		            <td th:text="${#strings.toUpperCase(spots.sellCurrency.currencyCode)}" class="text-center"/>
+		            <td th:text="${(spots.expiryDate)}" />
+		        </tr>
+		        </tbody>
+		    </table>
+		</div>
+	</div>
+	<br>
+	
+	<div class="row">
+		<div class="col">
+			<h2>My Current Forward Orders</h2>
+		    <table class="table table-bordered table-striped">
+		        <thead>
+		        <tr>
+		            <th>Buy Amount</th>
+		            <th>Buy Currency</th>
+		            <th>Sell Amount</th>
+		            <th>Sell Currency</th>
+		            <th>Closing Date</th>
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr th:each="forwards: ${listCurrentForwardOrders}">
+		            <td th:text="${#numbers.formatDecimal(forwards.buyAmount,1,'COMMA',2,'POINT')}" class="text-end"/>
+		            <td th:text="${#strings.toUpperCase(forwards.buyCurrency.currencyCode)}" class="text-center"/>
+		            <td th:text="${#numbers.formatDecimal(forwards.sellAmount,1,'COMMA',2,'POINT')}" class="text-end"/>
+		            <td th:text="${#strings.toUpperCase(forwards.sellCurrency.currencyCode)}" class="text-center"/>
+		            <td th:text="${(forwards.closingDate)}" />
+		        </tr>
+		        </tbody>
+		    </table>
+		</div>
+	</div>
+	<br>
+		
+	<div class="row">
+		<div class="col-6">
+			<h2>My Spot Transactions</h2>
+		    <table class="table table-bordered table-striped">
+		        <thead>
+		        <tr>
+		            <th>Transaction Time</th>
+		            <th>Buy Amount</th>
+		            <th>Buy Currency</th>
+		            <th>Sell Amount</th>
+		            <th>Sell Currency</th>
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr th:each="spots: ${listSpotOrderTransactionHistory}">
+		            <td th:text="${(spots.transactionTime)}" />
+		            <td th:text="${#numbers.formatDecimal(spots.user1BuyCurrencyAmount,1,'COMMA',2,'POINT')}" class="text-end"/>
+		            <td th:text="${#strings.toUpperCase(spots.user1BuyCurrency.currencyCode)}" class="text-center"/>
+		            <td th:text="${#numbers.formatDecimal(spots.user2BuyCurrencyAmount,1,'COMMA',2,'POINT')}" class="text-end"/>
+		            <td th:text="${#strings.toUpperCase(spots.user2BuyCurrency.currencyCode)}" class="text-center"/>
+		        </tr>
+		        </tbody>
+		    </table>
+		</div>
+		<div class="col-6">
+			<h2>My Forward Transactions</h2>
+		    <table class="table table-bordered table-striped">
+		        <thead>
+		        <tr>
+		            <th>Transaction time</th>
+		            <th>Received Amount</th>
+		            <th>Transaction Currency</th>
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr th:each="forwards: ${listForwardOrderTransaction}">
+		            <td th:text="${(forwards.transactionTime)}" />
+		            <td th:text="${#numbers.formatDecimal(forwards.creatorReceivedAmount,1,'COMMA',2,'POINT')}" class="text-end"/>
+		            <td th:text="${#strings.toUpperCase(forwards.transactionCurrency.currencyCode)}" class="text-center"/>
+		        </tr>
+		        </tbody>
+		    </table>
+		</div>
+	</div>
+	<br>
+	
+	<div class="row">
+		<div class="col-6">
+			<h2>My Pending Bought Forward Orders</h2>
+		    <table class="table table-bordered table-striped">
+		        <thead>
+		        <tr>
+		            <th>Closing Date</th>
+		            <th>Transaction Currency</th>
+		            <th>Sell Currency</th>
+		            <th>Exchange Rate</th>
+					<th>Amount</th>
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr th:each="forward: ${listPendingTransaction}">
+		            <td th:text="${forward.orderClosingDate}" class="text-end"/>
+		            <td th:text="${#strings.toUpperCase(forward.transactionCurrency.currencyCode)}" class="text-center"/>
+		            <td th:text="${#strings.toUpperCase(forward.orderSellCurrency.currencyCode)}" class="text-end"/>
+		            <td th:text="${#numbers.formatDecimal(forward.orderExchangeRate,1,'COMMA',2,'POINT')}" class="text-center"/>
+		            <td th:text="${#numbers.formatDecimal(forward.creatorReceivedAmount,1,'COMMA',2,'POINT')}" class="text-end"/>
+		        </tr>
+		        </tbody>
+		    </table>
+		</div>
+		<div class="col-6">
+			<h2>My Completed Bought Forward Orders</h2>
+		    <table class="table table-bordered table-striped">
+		        <thead>
+		        <tr>
+		            <th>Transaction time</th>
+		            <th>Received Amount</th>
+		            <th>Transaction Currency</th>
+
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr th:each="forwards: ${listClosedBoughtTransactions}">
+		            <td th:text="${(forwards.transactionTime)}" />
+		            <td th:text="${#numbers.formatDecimal(-forwards.creatorReceivedAmount,1,'COMMA',2,'POINT')}" class="text-end"/>
+		            <td th:text="${#strings.toUpperCase(forwards.transactionCurrency.currencyCode)}" class="text-center"/>
+		        </tr>
+		        </tbody>
+		    </table>
+		</div>
+	</div>
+</div>
+</body>
+</html>
